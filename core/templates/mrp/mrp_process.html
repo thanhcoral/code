@@ -18,6 +18,12 @@ var task_data = {
         {"id":"{{task.id}}", "text":"{{task.product}}", "start_date":"{{task.start_date|date:'d-m-Y'}}", "duration":{{task.duration}},  "order":10,"progress":0.6, "parent":"100"},
         {% endfor %}
     ],
+    "links":[
+        { "id":1, "source":1, "target":2, "type":"0"},
+        { "id":2, "source":2, "target":3, "type":"0"},
+        { "id":3, "source":3, "target":4, "type":"0"},
+        { "id":4, "source":2, "target":5, "type":"0"}
+    ]
 }
 
 gantt.init("gantt_here");
