@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 
 from core.forms import *
@@ -159,3 +159,7 @@ def mrp_close(request, id):
     mrp.status = 'Closed'
     mrp.save()
     return redirect('/mrp_detail/' + str(id))
+def mrp_process(request, id):
+    mrp = ManufacturingPlan.objects.get(id=id)
+    tasks = mrp.task_set.all()
+    return render(request, 'mrp/mrp_process.html', {'mrp': mrp, 'tasks': tasks, })

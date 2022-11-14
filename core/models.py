@@ -1,5 +1,6 @@
 from django.utils import timezone
 from django.db import models
+from datetime import datetime, timedelta
 
 CUSTOMER_TYPE = [
     ('Khách hàng', 'Khách hàng'),
@@ -49,7 +50,7 @@ class Product(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    order_date = models.DateTimeField(default=timezone.now)
+    order_date = models.DateTimeField(default=timezone.now, blank=True, null=True)
     status = models.CharField(max_length=50, choices=ORDER_STATUS, blank=True, null=True)
     def __str__(self):
         return f"{self.customer} [{self.order_date.strftime('%d-%m-%y')}]"
@@ -71,7 +72,9 @@ class ManufacturingPlan(models.Model):
     end_date = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=50, choices=MRP_STATUS, default='Draft', blank=True, null=True)
     def __str__(self):
-        return f"{self.order.customer} [{self.order_date.strftime('%d-%m-%y')}]"
+        return f"{self.order.customer} [{self.order.order_date.strftime('%d-%m-%y')}]"
+    def duration(self):
+        return (self.end_date-self.start_date).days
 
 class Team(models.Model):
     name = models.CharField(max_length=50)
@@ -82,7 +85,12 @@ class Task(models.Model):
     plan = models.ForeignKey(ManufacturingPlan, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
-
+    quantity = models.IntegerField(default=1)
+    start_date = models.DateTimeField(default=timezone.now)
+    end_date = models.DateTimeField(blank=True, null=True)
+    def duration(self):
+        return (self.end_date-self.start_date).days
+        
 class Warehouse(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):

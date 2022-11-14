@@ -42,5 +42,6 @@ urlpatterns = [
     path('mrp_add/<int:id>', mrp_add, name='mrp_add'),
     path('mrp_open/<int:id>', mrp_open, name='mrp_open'),
     path('mrp_close/<int:id>', mrp_close, name='mrp_close'),
+    path('mrp_process/<int:id>', mrp_process, name='mrp_process'),
 
 ]
