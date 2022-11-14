@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Customer Detail{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/customer.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+{{customer.name}} - {{customer.type}}
+{% endblock content %}

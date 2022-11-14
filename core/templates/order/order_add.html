@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Customer Add{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/customer.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+{{ order_form.media }}
+<form method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{order_form.customer.id_for_label}}">Tên khách hàng:</label>
+            {{order_form.customer}}
+        </div>
+        <div class="col-6">
+            <label class="mr-3" for="{{order_form.code.id_for_label}}">Trạng thái đơn hàng:</label>
+            {{order_form.status}}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-2" for="{{order_form.type.id_for_label}}">Ngày đặt hàng:</label>
+            <div style="width: 75%; float: right;">
+                {{order_form.order_date}}
+            </div>
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+    <hr>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <input type="submit" value="Tạo" class="btn btn-success">
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+<!-- {{order_form.as_p}} -->
+</form>
+{% endblock content %}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}product List{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/product.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+{{product.name}}
+{% endblock content %}

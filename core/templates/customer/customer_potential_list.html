@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Potential Customer{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/customer.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<table class="table table-bordered mt-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for customer in potential_customers %}
+        <tr>
+          <th scope="row">{{customer.id}}</th>
+          <td>{{customer.code}}</td>
+          <td>{{customer.name}}</td>
+          <td>{{customer.type}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

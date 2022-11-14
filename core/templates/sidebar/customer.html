@@ -1,0 +1,37 @@
+<div class="side-nav">
+    <ul>
+        <li>
+            <a href="{% url 'customer' %}">
+                <span>
+                    <i class="fa fa-arrows mr-1" aria-hidden="true"></i>
+                    Khách hàng
+                </span>
+            </a>
+            <a class="ml-2" href="{% url 'customer_add' %}">
+                Thêm mới
+            </a>
+            <a class="ml-2" href="{% url 'customer_list' %}">
+                Danh sách
+            </a>
+            <a class="ml-3" href="{% url 'customer_normal_list' %}">
+                - Khách hàng
+            </a>
+            <a class="ml-3" href="{% url 'customer_potential_list' %}">
+                - Khách hàng tiềm năng
+            </a>
+            <hr>
+        </li>
+        <li>
+            <a href="#">
+                <span>
+                    <i class="fa fa-arrows mr-1" aria-hidden="true"></i>
+                    Địa chỉ liên lạc
+                </span>
+            </a>
+            <a class="ml-2" href="{% url 'customer_contact_add' %}">
+                Thêm mới
+            </a>
+            <hr>
+        </li>
+    </ul>
+</div>

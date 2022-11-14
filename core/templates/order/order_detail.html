@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}order List{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/sales.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+{{order.customer}}
+{% endblock content %}

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Customer List{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/customer.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<table class="table table-bordered mt-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for customer in customers %}
+        <tr>
+          <th scope="row">{{customer.id}}</th>
+          <td>{{customer.code}}</td>
+          <td><a href="{% url 'customer_detail' customer.id %}">{{customer.name}}</a></td>
+          <td>{{customer.type}}</td>
+          <td>
+            <a href="#" class="btn btn-sm btn-success">Create Order</a>
+            <a href="#" class="btn btn-sm btn-info">Create Quote</a>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

@@ -1,0 +1,32 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        ".vscode": true,
+        "__pycache__": true,
+        "manage.py": true,
+        "config": true,
+        "core/__init__.py": true,
+        "core/apps.py": true,
+        "core/admin.py": true,
+        "core/__pycache__": true,
+        "core/migrations/__pycache__": true,
+        "core/migrations/__init__.py": true
+    },
+    "hide-files.files": [
+        ".vscode",
+        "__pycache__",
+        "manage.py",
+        "config",
+        "core/__init__.py",
+        "core/apps.py",
+        "core/admin.py",
+        "core/__pycache__",
+        "core/migrations/__pycache__",
+        "core/migrations/__init__.py"
+    ]
+}
