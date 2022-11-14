@@ -87,3 +87,4 @@ def order_add(request, id=None):
             order_form.save()
             return redirect('order_list')
     return render(request, 'order/order_add.html', {'order_form': order_form,})
+#############################################################
