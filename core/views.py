@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from core.forms import *
 
@@ -14,6 +15,11 @@ def customer_list(request):
 def customer_detail(request, id):
     return render(request, 'customer/customer_detail.html', {'customer': Customer.objects.get(id=id), })
 def customer_delete(request, id):
+    try:
+        Customer.objects.get(id=id).delete()
+        messages.success(request, 'Xoá thành công.')
+    except:
+        messages.error(request, 'Khách hàng với ID này không tồn tại.')
     return redirect('customer_list')
 def customer_add(request):
     customer_form = CustomerForm()

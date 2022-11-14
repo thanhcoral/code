@@ -49,6 +49,11 @@
             {% block sidebar %}{% endblock sidebar %}
         </div>
         <div class="col-10">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-warning">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
             {% block content %}{% endblock content %}
         </div>
     </div>
