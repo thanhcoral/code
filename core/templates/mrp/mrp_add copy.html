@@ -1,36 +1,84 @@
 {% extends 'base.html' %}
-{% block title %}Order List{% endblock title %}
+{% block title %}order_line Add{% endblock title %}
 
 {% block sidebar %}
     {% include 'sidebar/sales.html' %}
 {% endblock sidebar %}
 
 {% block content %}
-<table class="table table-bordered mt-5">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Customer</th>
-        <th scope="col">Order date</th>
-        <th scope="col">Status</th>
-        <th scope="col">Action</th>
-      </tr>
-    </thead>
-    <tbody>
-        {% for order in orders %}
-        <tr>
-          <th scope="row">{{order.id}}</th>
-          <td>{{order.customer}}</td>
-          <td>{{order.order_date|date:"d-m-Y"}}</td>
-          <td>{{order.status}}</td>
-          <td>
-            <a href="{% url 'order_detail' order.id %}" class="btn btn-sm btn-primary">Detail</a>
-            <a href="{% url 'mrp_detail' order.id %}" class="btn btn-sm btn-info">View Project</a>
-            <a href="{% url 'mrp_add' order.id %}" class="btn btn-sm btn-success">Create Order</a>
-            <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'order_delete' order.id %}':''">Delete</a>
-          </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-  </table>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+{{ mrp_form.media }}
+<form method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{mrp_form.order.id_for_label}}">Order:</label>
+            {{mrp_form.order}}
+        </div>
+        <div class="col-6">
+            <label class="mr-3" for="{{mrp_form.code.id_for_label}}">Trạng thái đơn hàng:</label>
+            {{mrp_form.status}}
+        </div>
+    </div>
+    <table class="table table-bordered mt-5">
+        <thead>
+          <tr>
+            <th scope="col" width=10% >Mã</th>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Type</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for order_line in order_lines %}
+            <tr>
+              <th scope="row">P{{order_line.product.id}}</th>
+              <td>{{order_line.product}}</td>
+              <td>{{order_line.quantity}}</td>
+              <td>{{order_line.type}}</td>
+              <td>
+                <a href="" class="btn btn-sm btn-success">Create Order</a>
+                <a href="#" class="btn btn-sm btn-info">Create Quote</a>
+                <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='':''">Delete</a>
+              </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    <label class="mr-2">Sản phẩm:</label>
+    {% for order_line in order_lines %}
+    <div class="row mb-3">
+        <div class="col-3" style="border-right: 1px solid #E0E0E0;">
+            <div style="width: 75%; float: right;">
+                {{order_line.product}}
+            </div>
+        </div>
+        <div class="col-3">
+        </div>
+    </div>
+    {% endfor %}
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-2" for="{{mrp_form.type.id_for_label}}">Ngày đặt hàng:</label>
+            <div style="width: 75%; float: right;">
+                {{mrp_form.order_date}}
+            </div>
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+    <hr>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <input type="submit" value="Tạo" class="btn btn-success">
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+<!-- {{mrp_form.as_p}} -->
+</form>
 {% endblock content %}
