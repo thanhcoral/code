@@ -9,6 +9,12 @@ def dashboard(request):
 #############################################################
 def customer(request):
     return render(request, 'customer/customer.html')
+def customer_list(request):
+    return render(request, 'customer/customer_list.html', {'customers': Customer.objects.all(), })
+def customer_detail(request, id):
+    return render(request, 'customer/customer_detail.html', {'customer': Customer.objects.get(id=id), })
+def customer_delete(request, id):
+    return redirect('customer_list')
 def customer_add(request):
     customer_form = CustomerForm()
     if request.method == 'POST':
@@ -16,26 +22,11 @@ def customer_add(request):
         if customer_form.is_valid():
             customer_form.save()
             return redirect('customer_list')
-    return render(request, 'customer/customer_add.html', {
-        'customer_form': customer_form,
-    })
-def customer_list(request):
-    return render(request, 'customer/customer_list.html', {
-        'customers': Customer.objects.all(),
-    })
-def customer_detail(request, id):
-    return render(request, 'customer/customer_detail.html', {
-        'customer': Customer.objects.get(id=id),
-    })
+    return render(request, 'customer/customer_add.html', {'customer_form': customer_form, })
 def customer_normal_list(request):
-    return render(request, 'customer/customer_normal_list.html', {
-        'normal_customers': Customer.objects.filter(type='Khách hàng'),
-    })
+    return render(request, 'customer/customer_normal_list.html', {'normal_customers': Customer.objects.filter(type='Khách hàng'), })
 def customer_potential_list(request):
-    return render(request, 'customer/customer_potential_list.html', {
-        'potential_customers': Customer.objects.filter(type='Khách hàng tiềm năng'),
-    })
-
+    return render(request, 'customer/customer_potential_list.html', {'potential_customers': Customer.objects.filter(type='Khách hàng tiềm năng'), })
 
 def customer_contact_add(request):
     customer_contact_form = CustomerContactForm()
@@ -44,10 +35,7 @@ def customer_contact_add(request):
         if customer_contact_form.is_valid():
             customer_contact_form.save()
             return redirect('customer_list')
-    return render(request, 'customer_contact/customer_contact_add.html', {
-        'customer_contact_form': customer_contact_form,
-    })
-
+    return render(request, 'customer_contact/customer_contact_add.html', {'customer_contact_form': customer_contact_form, })
 #############################################################
 def product(request):
     return render(request, 'product/product.html')

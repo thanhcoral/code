@@ -9,9 +9,10 @@ urlpatterns = [
     path('dashboard', dashboard, name='dashboard'),
 
     path('customer', customer, name='customer'),
-    path('customer_add', customer_add, name='customer_add'),
     path('customer_list', customer_list, name='customer_list'),
     path('customer_detail/<int:id>', customer_detail, name='customer_detail'),
+    path('customer_delete/<int:id>', customer_delete, name='customer_delete'),
+    path('customer_add', customer_add, name='customer_add'),
     path('customer_normal_list', customer_normal_list, name='customer_normal_list'),
     path('customer_potential_list', customer_potential_list, name='customer_potential_list'),
 
