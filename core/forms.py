@@ -25,7 +25,9 @@ class OrderLineForm(forms.ModelForm):
         model = OrderLine
         fields = '__all__'
     order = forms.ModelChoiceField(queryset=Order.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
-    product = forms.ModelChoiceField(queryset=Product.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    product = forms.ModelChoiceField(queryset=Product.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),error_messages={
+        'unique': 'Sản phẩm đã tồn tại trong đơn hàng.'
+    })
     quantity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
 
 class OrderForm(forms.ModelForm):
