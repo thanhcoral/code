@@ -96,11 +96,12 @@ def order_line_add(request, id=None):
         order_line_form = OrderLineForm(initial={'order': Order.objects.get(id=id)})
     if request.method == 'POST':
         order_line_form = OrderLineForm(request.POST)
-        print(request.POST)
         if order_line_form.is_valid():
             order_line_form.save()
             messages.success(request, 'Thêm thành công.')
-            return redirect('/order_detail2/' + str(id))
+        else:
+            messages.error(request, order_line_form.errors)
+        return redirect('/order_detail2/' + str(id))
     return render(request, 'order_line/order_line_add.html', {'order_line_form': order_line_form,})
 def order_line_delete(request, id):
     try:
