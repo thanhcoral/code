@@ -66,12 +66,17 @@ def product_detail(request, id):
 #############################################################
 def order(request):
     return render(request, 'order/order.html')
-
 def order_list(request):
-    return render(request, 'order/order_list.html', {
-        'orders': Order.objects.all(),
-    })
-
+    return render(request, 'order/order_list.html', {'orders': Order.objects.all(),})
+def order_detail(request, id):
+    return render(request, 'order/order_detail.html', {'order': Order.objects.get(id=id),})
+def order_delete(request, id):
+    try:
+        Order.objects.get(id=id).delete()
+        messages.success(request, 'Xoá thành công.')
+    except:
+        messages.error(request, 'Đơn hàng với ID này không tồn tại.')
+    return redirect('order_list')
 def order_add(request, id=None):
     order_form = OrderForm()
     if id is not None:
@@ -81,10 +86,4 @@ def order_add(request, id=None):
         if order_form.is_valid():
             order_form.save()
             return redirect('order_list')
-    return render(request, 'order/order_add.html', {
-        'order_form': order_form,
-    })
-def order_detail(request, id):
-    return render(request, 'order/order_detail.html', {
-        'order': Order.objects.get(id=id),
-    })
+    return render(request, 'order/order_add.html', {'order_form': order_form,})
