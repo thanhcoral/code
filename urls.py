@@ -34,4 +34,13 @@ urlpatterns = [
 
     path('order_line_add/<int:id>', order_line_add, name='order_line_add'),
     path('order_line_delete/<int:id>', order_line_delete, name='order_line_delete'),
+
+    path('mrp', mrp, name='mrp'),
+    path('mrp_list', mrp_list, name='mrp_list'),
+    path('mrp_detail/<int:id>', mrp_detail, name='mrp_detail'),
+    path('mrp_add', mrp_add, name='mrp_add'),
+    path('mrp_add/<int:id>', mrp_add, name='mrp_add'),
+    path('mrp_open/<int:id>', mrp_open, name='mrp_open'),
+    path('mrp_close/<int:id>', mrp_close, name='mrp_close'),
+
 ]

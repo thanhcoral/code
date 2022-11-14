@@ -14,6 +14,11 @@ ORDER_STATUS = [
     ('1', '1'),
     ('2', '2'),
 ]
+MRP_STATUS = [
+    ('Draft', 'Draft'),
+    ('Open', 'Open'),
+    ('Closed', 'Closed'),
+]
 
 class Customer(models.Model):
     name = models.CharField(max_length=50)
@@ -55,9 +60,12 @@ class BOM(models.Model):
 
 class ManufacturingPlan(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    bom = models.ForeignKey(BOM, on_delete=models.CASCADE)
+    bom = models.ForeignKey(BOM, on_delete=models.CASCADE, blank=True, null=True)
     start_date = models.DateTimeField(default=timezone.now)
-    end_date = models.DateTimeField()
+    end_date = models.DateTimeField(blank=True, null=True)
+    status = models.CharField(max_length=50, choices=MRP_STATUS, default='Draft', blank=True, null=True)
+    def __str__(self):
+        return f"{self.order.customer} [{self.order_date.strftime('%d-%m-%y')}]"
 
 class Team(models.Model):
     name = models.CharField(max_length=50)

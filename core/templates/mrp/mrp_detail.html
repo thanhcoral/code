@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}order_line Add{% endblock title %}
+
+{% block sidebar %}
+{% include 'sidebar/mrp.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"
+	integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+{{ mrp_form.media }}
+<form method="post">
+	{% csrf_token %}
+	<div class="container mt-3">
+		<div class="row mb-2">
+			<div class="col-8"></div>
+			<div class="col-4 text-right">
+				<a href="{% url 'mrp_open' mrp.order.id %}" class="btn btn-sm btn-success">Khởi chạy dự án</a>
+				<a href="{% url 'mrp_close' mrp.order.id %}" class="btn btn-sm btn-warning">Đóng dự án</a>
+			</div>
+		</div>
+		
+		<div class="card row mb-3">
+			<div class="card-header"> <b> Mã đơn hàng: </b> {{mrp.order.customer.code}}{{mrp.order.id}} order at: {{mrp.order.order_date|date:'d-m-y'}} </div>
+			<div class="card-body">
+				<div class="row">
+					<div class="col-2 text-center">
+						<img src="https://via.placeholder.com/128" alt="logo">
+					</div>
+					<div class="col-8">
+						<h5 class="ml-4">{{mrp.order.customer}}</h5>
+					</div>
+					<div class="col-2">
+						{% if mrp.status == 'Open' %}
+						<a href="" class="btn btn-sm btn-success">Open</a>
+						{% elif mrp.status == 'Draft' %}
+						<a href="" class="btn btn-sm btn-secondary">Draft</a>
+						{% elif mrp.status == 'Closed' %}
+						<a href="" class="btn btn-sm btn-secondary">Closed</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		<table class="table table-bordered mt-5">
+			<thead>
+				<tr>
+					<th scope="col" width=10%>Mã</th>
+					<th scope="col">Product</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Kho</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for order_line in order_lines %}
+				<tr>
+					<th scope="row">P{{order_line.product.id}}</th>
+					<td>{{order_line.product}}</td>
+					<td>{{order_line.quantity}}</td>
+					<td>5</td>
+					<td>
+						<a href="" class="btn btn-sm btn-success">Create Task</a>
+						<a href="#" class="btn btn-sm btn-info">Create Quote</a>
+						<a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='':''">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	<!-- {{mrp_form.as_p}} -->
+</form>
+{% endblock content %}

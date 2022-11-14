@@ -113,3 +113,48 @@ def order_line_delete(request, id):
         return redirect('order_list')
     return redirect('/order_detail2/' + str(order_id))
 #############################################################
+def mrp(request):
+    return render(request, 'mrp/mrp.html')
+def mrp_list(request):
+    return render(request, 'mrp/mrp_list.html', {'mrps': ManufacturingPlan.objects.all(),})
+def mrp_detail(request, id):
+    try:
+        mrp = ManufacturingPlan.objects.get(order=Order.objects.get(id=id))
+    except:
+        messages.error(request, 'Chưa có dự án cho đơn đặt hàng này. Vui lòng khởi tạo.')
+        return redirect('order_list')
+    return render(request, 'mrp/mrp_detail.html', {
+        'mrp': mrp,
+        'order_lines': Order.objects.get(id=id).orderline_set.all(),
+    })
+def mrp_add(request, id=None):
+    if id is None:
+        return render(request, 'mrp/mrp_add.html', {'orders': Order.objects.all(),})
+    else:
+        ManufacturingPlan.objects.create(
+            order = Order.objects.get(id=id),
+        )
+        return redirect('/mrp_detail/' + str(id))
+    # mrp_form = MrpForm()
+    # if id is not None:
+    #     mrp_form = MrpForm(initial={'order': Order.objects.get(id=id)})
+    #     order_lines = Order.objects.get(id=id).orderline_set.all()
+    # if request.method == 'POST':
+    #     mrp_form = MrpForm(request.POST)
+    #     if mrp_form.is_valid():
+    #         # mrp_form.save()
+    #         messages.success(request, 'Thêm thành công.')
+    #     else:
+    #         messages.error(request, mrp_form.errors)
+    #     return redirect('/mrp/' + str(id))
+    # return render(request, 'mrp/mrp_add.html', {'mrp_form': mrp_form, 'order_lines': order_lines, })
+def mrp_open(request, id):
+    mrp = ManufacturingPlan.objects.get(order=Order.objects.get(id=id))
+    mrp.status = 'Open'
+    mrp.save()
+    return redirect('/mrp_detail/' + str(id))
+def mrp_close(request, id):
+    mrp = ManufacturingPlan.objects.get(order=Order.objects.get(id=id))
+    mrp.status = 'Closed'
+    mrp.save()
+    return redirect('/mrp_detail/' + str(id))

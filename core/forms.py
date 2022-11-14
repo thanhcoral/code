@@ -46,3 +46,14 @@ class ProductForm(forms.ModelForm):
         fields = '__all__'
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     type = forms.CharField(widget=forms.Select(choices=PRODUCT_TYPE,attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+
+class MrpForm(forms.ModelForm):
+    class Meta:
+        model = ManufacturingPlan
+        fields = '__all__'
+        widgets = {
+            "start_date": DateTimePickerInput(attrs={'class': 'form-control', }),
+            "end_date": DateTimePickerInput(attrs={'class': 'form-control', }),
+        }
+    order = forms.ModelChoiceField(queryset=Order.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    bom = forms.ModelChoiceField(queryset=BOM.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
