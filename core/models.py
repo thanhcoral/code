@@ -1,7 +1,6 @@
 from django.utils import timezone
 from django.db import models
 
-
 CUSTOMER_TYPE = [
     ('Khách hàng', 'Khách hàng'),
     ('Khách hàng tiềm năng', 'Khách hàng tiềm năng'),
@@ -41,6 +40,8 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     order_date = models.DateTimeField(default=timezone.now)
     status = models.CharField(max_length=50, choices=ORDER_STATUS, blank=True, null=True)
+    def __str__(self):
+        return f"{self.customer} [{self.order_date.strftime('%d-%m-%y')}]"
 
 class OrderLine(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)

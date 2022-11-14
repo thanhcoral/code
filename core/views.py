@@ -70,6 +70,8 @@ def order_list(request):
     return render(request, 'order/order_list.html', {'orders': Order.objects.all(),})
 def order_detail(request, id):
     return render(request, 'order/order_detail.html', {'order': Order.objects.get(id=id),})
+def order_detail2(request, id):
+    return render(request, 'order/order_detail2.html', {'order': Order.objects.get(id=id),})
 def order_delete(request, id):
     try:
         Order.objects.get(id=id).delete()
@@ -87,4 +89,26 @@ def order_add(request, id=None):
             order_form.save()
             return redirect('order_list')
     return render(request, 'order/order_add.html', {'order_form': order_form,})
+
+def order_line_add(request, id=None):
+    order_line_form = OrderLineForm()
+    if id is not None:
+        order_line_form = OrderLineForm(initial={'order': Order.objects.get(id=id)})
+    if request.method == 'POST':
+        order_line_form = OrderLineForm(request.POST)
+        print(request.POST)
+        if order_line_form.is_valid():
+            order_line_form.save()
+            messages.success(request, 'Thêm thành công.')
+            return redirect('/order_detail2/' + str(id))
+    return render(request, 'order_line/order_line_add.html', {'order_line_form': order_line_form,})
+def order_line_delete(request, id):
+    try:
+        order_id = OrderLine.objects.get(id=id).order.id
+        OrderLine.objects.get(id=id).delete()
+        messages.success(request, 'Xoá thành công.')
+    except:
+        messages.error(request, 'OrderLine với ID này không tồn tại.')
+        return redirect('order_list')
+    return redirect('/order_detail2/' + str(order_id))
 #############################################################

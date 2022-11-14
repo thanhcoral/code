@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}order_line Add{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/sales.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+                <label class="mr-3" for="{{order_line_form.order.id_for_label}}">Order</label>
+                {{order_line_form.order}}
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{order_line_form.product.id_for_label}}">Sản phẩm:</label>
+            {{order_line_form.product}}
+        </div>
+        <div class="col-6">
+            <label class="mr-3" for="{{order_line_form.quantity.id_for_label}}">Số lượng:</label>
+            {{order_line_form.quantity}}
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <input type="submit" value="Tạo" class="btn btn-success">
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+<!-- {{order_line_form.as_p}} -->
+</form>
+{% endblock content %}

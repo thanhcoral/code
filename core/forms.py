@@ -20,6 +20,14 @@ class CustomerContactForm(forms.ModelForm):
     address = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     phone = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
 
+class OrderLineForm(forms.ModelForm):
+    class Meta:
+        model = OrderLine
+        fields = '__all__'
+    order = forms.ModelChoiceField(queryset=Order.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    product = forms.ModelChoiceField(queryset=Product.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    quantity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order

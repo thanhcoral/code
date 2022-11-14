@@ -27,8 +27,11 @@ urlpatterns = [
     path('sales', order, name='sales'),
     path('order_list', order_list, name='order_list'),
     path('order_detail/<int:id>', order_detail, name='order_detail'),
+    path('order_detail2/<int:id>', order_detail2, name='order_detail2'),
     path('order_delete/<int:id>', order_delete, name='order_delete'),
     path('order_add', order_add, name='order_add'),
     path('order_add/<int:id>', order_add, name='order_add'),
 
+    path('order_line_add/<int:id>', order_line_add, name='order_line_add'),
+    path('order_line_delete/<int:id>', order_line_delete, name='order_line_delete'),
 ]
