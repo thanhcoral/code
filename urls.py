@@ -27,6 +27,7 @@ urlpatterns = [
     path('sales', order, name='sales'),
     path('order_list', order_list, name='order_list'),
     path('order_add', order_add, name='order_add'),
+    path('order_add/<int:id>', order_add, name='order_add'),
     path('order_detail/<int:id>', order_detail, name='order_detail'),
 
 ]

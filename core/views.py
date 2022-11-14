@@ -72,8 +72,10 @@ def order_list(request):
         'orders': Order.objects.all(),
     })
 
-def order_add(request):
+def order_add(request, id=None):
     order_form = OrderForm()
+    if id is not None:
+        order_form = OrderForm(initial={'customer': Customer.objects.get(id=id)})
     if request.method == 'POST':
         order_form = OrderForm(request.POST)
         if order_form.is_valid():
@@ -82,7 +84,6 @@ def order_add(request):
     return render(request, 'order/order_add.html', {
         'order_form': order_form,
     })
-
 def order_detail(request, id):
     return render(request, 'order/order_detail.html', {
         'order': Order.objects.get(id=id),
