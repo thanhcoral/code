@@ -6,7 +6,8 @@ from core.forms import *
 
 def dashboard(request):
     return render(request, 'dashboard.html')
-
+def inventory_status():
+    return 
 #############################################################
 def customer(request):
     return render(request, 'customer/customer.html')

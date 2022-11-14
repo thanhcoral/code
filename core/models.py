@@ -40,6 +40,12 @@ class Product(models.Model):
     type = models.CharField(max_length=50, choices=PRODUCT_TYPE, blank=True, null=True)
     def __str__(self):
         return self.name
+    def inventory(self):
+        ivts =Inventory.objects.filter(product=self)
+        total = 0
+        for ivt in ivts:
+            total += ivt.quantity
+        return total
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
@@ -77,3 +83,12 @@ class Task(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
 
+class Warehouse(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
+
+class Inventory(models.Model):
+    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
