@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Material Fomular{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/product.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<table class="table table-bordered mt-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+        <tr>
+          <th scope="row">{{product.id}}</th>
+          <td><a href="{% url 'mf_detail' product.id %}">{{product.name}}</a></td>
+          <td>{{product.type}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

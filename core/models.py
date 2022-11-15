@@ -12,6 +12,10 @@ PRODUCT_TYPE = [
     ('Laptop', 'Laptop'),
     ('Tablet', 'Tablet'),
 ]
+COMPONENT_TYPE = [
+    ('cp1', 'cp1'),
+    ('cp2', 'cp2'),
+]
 ORDER_STATUS = [
     ('1', '1'),
     ('2', '2'),
@@ -37,9 +41,16 @@ class CustomerContact(models.Model):
         return f"{self.customer} [{self.label}]"
 
 
+class Component(models.Model):
+    name = models.CharField(max_length=50)
+    type = models.CharField(max_length=50, choices=COMPONENT_TYPE, blank=True, null=True)
+    def __str__(self):
+        return self.name
+
 class Product(models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=50, choices=PRODUCT_TYPE, blank=True, null=True)
+    component = models.ManyToManyField(Component, blank=True, null=True)
     def __str__(self):
         return self.name
     def inventory(self):

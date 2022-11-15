@@ -36,7 +36,6 @@ def customer_normal_list(request):
     return render(request, 'customer/customer_normal_list.html', {'normal_customers': Customer.objects.filter(type='Khách hàng'), })
 def customer_potential_list(request):
     return render(request, 'customer/customer_potential_list.html', {'potential_customers': Customer.objects.filter(type='Khách hàng tiềm năng'), })
-
 def customer_contact_add(request):
     customer_contact_form = CustomerContactForm()
     if request.method == 'POST':
@@ -49,9 +48,7 @@ def customer_contact_add(request):
 def product(request):
     return render(request, 'product/product.html')
 def product_list(request):
-    return render(request, 'product/product_list.html', {
-        'products': Product.objects.all(),
-    })
+    return render(request, 'product/product_list.html', {'products': Product.objects.all(),})
 def product_add(request):
     product_form = ProductForm()
     if request.method == 'POST':
@@ -63,9 +60,7 @@ def product_add(request):
         'product_form': product_form,
     })
 def product_detail(request, id):
-    return render(request, 'product/product_detail.html', {
-        'product': Product.objects.get(id=id),
-    })
+    return render(request, 'product/product_detail.html', {'product': Product.objects.get(id=id),})
 #############################################################
 def order(request):
     return render(request, 'order/order.html')
@@ -165,3 +160,8 @@ def mrp_process(request, id):
     mrp = ManufacturingPlan.objects.get(id=id)
     tasks = mrp.task_set.all()
     return render(request, 'mrp/mrp_process.html', {'mrp': mrp, 'tasks': tasks, })
+#########################################################################
+def mf(request):
+    return render(request, 'mf/mf.html', {'products': Product.objects.all(),})
+def mf_detail(request, id):
+    return render(request, 'mf/mf_detail.html', {'product': Product.objects.get(id=id),})
