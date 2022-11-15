@@ -198,6 +198,17 @@ def task_start(request, id):
     task.end_date = timezone.now()
     task.save()
     return redirect('/task_detail/' + str(id))
+def task_update(request, id):
+    task = Task.objects.get(id=id)
+    task_update_form = TaskUpdateForm()
+    if request.method == 'POST':
+        task_update_form = TaskUpdateForm(request.POST)
+        if task_update_form.is_valid():
+            print(task_update_form.cleaned_data)
+            task.quantity_process = task_update_form.cleaned_data['quantity_process']
+            task.save()
+            return redirect('/task_detail/' + str(id))
+    return render(request, 'task/task_update.html', {'task_update_form': task_update_form,})
 #########################################################################
 def mf(request):
     return render(request, 'mf/mf.html', {'products': Product.objects.all(),})

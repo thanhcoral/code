@@ -10,5 +10,6 @@
 {{task.product}}
 <hr>
 <a href="{% url 'task_start' task.id %}" class="btn btn-primary">Start</a>
+<a href="{% url 'task_update' task.id %}" class="btn btn-primary">Update</a>
 
 {% endblock content %}

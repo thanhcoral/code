@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Task Add{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/mrp.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+{{ task_update_form.media }}
+<form method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{task_update_form.quantity_process.id_for_label}}">Quantity Process</label>
+            {{task_update_form.quantity_process}}
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <input type="submit" value="Tạo" class="btn btn-success">
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+<!-- {{task_update_form.as_p}} -->
+</form>
+{% endblock content %}
