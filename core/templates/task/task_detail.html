@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %}order List{% endblock title %}
+
+{% block sidebar %}
+	{% include 'sidebar/mrp.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<div class="mt-5"></div>
+{{task.product}}
+<hr>
+<a href="{% url 'task_start' task.id %}" class="btn btn-primary">Start</a>
+
+{% endblock content %}

@@ -189,6 +189,15 @@ def task_delete(request, id):
     except:
         messages.error(request, 'Task với ID này không tồn tại.')
     return redirect('/mrp_detail/'+ str(plan_id))
+def task_detail(request, id):
+    return render(request, 'task/task_detail.html', {'task': Task.objects.get(id=id),})
+def task_start(request, id):
+    task = Task.objects.get(id=id)
+    task.is_start = True
+    task.start_date = timezone.now()
+    task.end_date = timezone.now()
+    task.save()
+    return redirect('/task_detail/' + str(id))
 #########################################################################
 def mf(request):
     return render(request, 'mf/mf.html', {'products': Product.objects.all(),})
