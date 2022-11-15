@@ -124,6 +124,7 @@ def mrp_detail(request, id):
     return render(request, 'mrp/mrp_detail.html', {
         'mrp': mrp,
         'order_lines': Order.objects.get(id=id).orderline_set.all(),
+        'tasks': Task.objects.filter(plan=mrp),
     })
 def mrp_add(request, id=None):
     if id is None:

@@ -42,7 +42,7 @@
 				</div>
 			</div>
 		</div>
-		<table class="table table-bordered mt-5">
+		<table class="table table-bordered mt-5 mb-4">
 			<thead>
 				<tr>
 					<th scope="col" width=10%>Mã</th>
@@ -68,7 +68,46 @@
 				{% endfor %}
 			</tbody>
 		</table>
+		<hr>
 	</div>
+		<div class="row">
+			<h5 class="col-10"> Task List </h5>
+			<div class="col-2"><a href="{% url 'mrp_process' mrp.id %}" class="btn btn-primary">View Gantt chart</a></div>
+		</div>
+		<table class="table table-bordered mt-3 mb-4 mr-5">
+			<thead>
+				<tr>
+					<th scope="col" width=10%>#</th>
+					<th scope="col">Product</th>
+					<th scope="col">Team</th>
+					<th scope="col">Quantity</th>
+					<th scope="col">Progress</th>
+					<th scope="col">Kho</th>
+					<th scope="col">planned_start</th>
+					<th scope="col">planned_end</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for task in tasks %}
+				<tr>
+					<th scope="row">{{task.id}}</th>
+					<td>{{task.product}}</td>
+					<td>{{task.team}}</td>
+					<td>{{task.quantity}}</td>
+					<td>{{task.quantity_process}}</td>
+					<td>{{task.product.inventory}}</td>
+					<td>{{task.planned_start|date:'d-m-Y'}}</td>
+					<td>{{task.planned_end|date:'d-m-Y'}}</td>
+					<td>
+						<a href="#" class="btn btn-sm btn-warning">Edit</a>
+						<a href="#" class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='':''">Delete</a>
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	
 	<!-- {{mrp_form.as_p}} -->
 </form>
 {% endblock content %}
