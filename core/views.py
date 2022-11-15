@@ -206,6 +206,7 @@ def task_update(request, id):
         if task_update_form.is_valid():
             print(task_update_form.cleaned_data)
             task.quantity_process = task_update_form.cleaned_data['quantity_process']
+            task.end_date = timezone.now()
             task.save()
             return redirect('/task_detail/' + str(id))
     return render(request, 'task/task_update.html', {'task_update_form': task_update_form,})
