@@ -94,7 +94,18 @@
 		data: [
 			{ id: 100, text: "{{mrp.order.customer.code}}", type: "project", progress: {{mrp.progress}}, open: true, start_date: "{{mrp.start_date|date:'d-m-Y'}} 00:00", end_date: "{{mrp.end_date|date:'d-m-Y'}} 00:00", parent: 0, planned_start: "{{mrp.planned_start|date:'d-m-Y'}} 00:00", planned_end: "{{mrp.planned_end|date:'d-m-Y'}} 00:00"},
 			{% for task in tasks %}
-            { id: {{task.id}}, text: "{{task.product}}", progress: {{task.progress}}, open: true, start_date: "{{task.start_date|date:'d-m-Y'}} 00:00", end_date: "{{task.end_date|date:'d-m-Y'}} 00:00", parent: 0, planned_start: "{{task.planned_start|date:'d-m-Y'}} 00:00", planned_end: "{{task.planned_end|date:'d-m-Y'}} 00:00", parent: "100"},
+            { 
+				id: {{task.id}}, 
+				text: "{{task.product}}", 
+				progress: {{task.progress}}, 
+				open: true, 
+				start_date: "{% if task.is_start %}{{task.start_date|date:'d-m-Y'}}{% else %}{{task.planned_start|date:'d-m-Y'}}{% endif %} 00:00", 
+				end_date: "{% if task.is_start %}{{task.end_date|date:'d-m-Y'}}{% else %}{{task.planned_start|date:'d-m-Y'}}{% endif %} 00:00", 
+				parent: 0, 
+				planned_start: "{{task.planned_start|date:'d-m-Y'}} 00:00", 
+				planned_end: "{{task.planned_end|date:'d-m-Y'}} 00:00", 
+				parent: "100"
+			},
             {% endfor %}
 		],
 	});
