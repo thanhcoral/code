@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Task Add{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/mrp.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+{{ task_form.media }}
+<form method="post">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{task_form.plan.id_for_label}}">plan</label>
+            {{task_form.plan}}
+        </div>
+        <div class="col-6">
+            <label class="mr-3" for="{{task_form.product.id_for_label}}">product</label>
+            {{task_form.product}}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{task_form.team.id_for_label}}">team</label>
+            {{task_form.team}}
+        </div>
+        <div class="col-6">
+            <label class="mr-3" for="{{task_form.quantity.id_for_label}}">quantity</label>
+            {{task_form.quantity}}
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{task_form.planned_start.id_for_label}}">planned_start</label>
+            {{task_form.planned_start}}
+        </div>
+        <div class="col-6">
+            <label class="mr-3" for="{{task_form.planned_end.id_for_label}}">planned_end</label>
+            {{task_form.planned_end}}
+        </div>
+    </div>
+    <hr>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <input type="submit" value="Tạo" class="btn btn-success">
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+<!-- {{task_form.as_p}} -->
+</form>
+{% endblock content %}

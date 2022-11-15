@@ -101,7 +101,7 @@
 					<td>{{task.planned_end|date:'d-m-Y'}}</td>
 					<td>
 						<a href="#" class="btn btn-sm btn-warning">Edit</a>
-						<a href="#" class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='':''">Delete</a>
+						<a href="#" class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'task_delete' task.id %}':''">Delete</a>
 					</td>
 				</tr>
 				{% endfor %}

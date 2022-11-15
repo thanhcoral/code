@@ -57,3 +57,16 @@ class MrpForm(forms.ModelForm):
         }
     order = forms.ModelChoiceField(queryset=Order.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     bom = forms.ModelChoiceField(queryset=BOM.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['plan', 'product', 'team', 'quantity', 'planned_start', 'planned_end']
+        widgets = {
+            "planned_start": DateTimePickerInput(attrs={'class': 'form-control', }),
+            "planned_end": DateTimePickerInput(attrs={'class': 'form-control', }),
+        }
+    plan = forms.ModelChoiceField(queryset=ManufacturingPlan.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    product = forms.ModelChoiceField(queryset=Product.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    team = forms.ModelChoiceField(queryset=Team.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    quantity = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)

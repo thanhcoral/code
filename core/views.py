@@ -161,8 +161,37 @@ def mrp_process(request, id):
     mrp = ManufacturingPlan.objects.get(id=id)
     tasks = mrp.task_set.all()
     return render(request, 'mrp/mrp_process.html', {'mrp': mrp, 'tasks': tasks, })
+def task_add(request, plan_id=None):
+    task_form = TaskForm()
+    if plan_id is not None:
+        task_form = TaskForm(initial={'plan': ManufacturingPlan.objects.get(id=plan_id)})
+    if request.method == 'POST':
+        task_form = TaskForm(request.POST)
+        if task_form.is_valid():
+            print(task_form.cleaned_data)
+            Task.objects.create(
+                plan = task_form.cleaned_data['plan'],
+                product = task_form.cleaned_data['product'],
+                team = task_form.cleaned_data['team'],
+                quantity = task_form.cleaned_data['quantity'],
+                start_date = task_form.cleaned_data['planned_start'],
+                end_date = task_form.cleaned_data['planned_end'],
+                planned_start = task_form.cleaned_data['planned_start'],
+                planned_end = task_form.cleaned_data['planned_end'],
+            )
+            return redirect('/task_add')
+    return render(request, 'task/task_add.html', {'task_form': task_form,})
+def task_delete(request, id):
+    try:
+        plan_id = Task.objects.get(id=id).plan.id
+        Task.objects.get(id=id).delete()
+        messages.success(request, 'Xoá thành công.')
+    except:
+        messages.error(request, 'Task với ID này không tồn tại.')
+    return redirect('/mrp_detail/'+ str(plan_id))
 #########################################################################
 def mf(request):
     return render(request, 'mf/mf.html', {'products': Product.objects.all(),})
 def mf_detail(request, id):
     return render(request, 'mf/mf_detail.html', {'product': Product.objects.get(id=id),})
+
