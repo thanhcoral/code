@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 CUSTOMER_TYPE = [
     ('Khách hàng', 'Khách hàng'),
     ('Khách hàng tiềm năng', 'Khách hàng tiềm năng'),
+    ('Others', 'Others'),
 ]
 PRODUCT_TYPE = [
     ('Smartphone', 'Smartphone'),
@@ -31,7 +32,7 @@ class CustomerContact(models.Model):
     label = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
     phone = models.CharField(max_length=50)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_contact')
     def __str__(self):
         return f"{self.customer} [{self.label}]"
 
