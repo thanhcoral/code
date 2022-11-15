@@ -70,6 +70,8 @@ class ManufacturingPlan(models.Model):
     bom = models.ForeignKey(BOM, on_delete=models.CASCADE, blank=True, null=True)
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField(blank=True, null=True)
+    planned_start = models.DateTimeField(blank=True, null=True)
+    planned_end = models.DateTimeField(blank=True, null=True)
     status = models.CharField(max_length=50, choices=MRP_STATUS, default='Draft', blank=True, null=True)
     def __str__(self):
         return f"{self.order.customer} [{self.order.order_date.strftime('%d-%m-%y')}]"
@@ -86,10 +88,15 @@ class Task(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+    quantity_process = models.IntegerField(default=0)
     start_date = models.DateTimeField(default=timezone.now)
     end_date = models.DateTimeField(blank=True, null=True)
+    planned_start = models.DateTimeField(blank=True, null=True)
+    planned_end = models.DateTimeField(blank=True, null=True)
     def duration(self):
         return (self.end_date-self.start_date).days
+    def progress(self):
+        return 1.0*(self.quantity_process/self.quantity)
         
 class Warehouse(models.Model):
     name = models.CharField(max_length=50)

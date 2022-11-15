@@ -19,14 +19,14 @@
 	}
 </script>
 
-<div id="gantt_here" style='width:100%; height:calc(100vh - 60px);'></div>
+<div id="gantt_here" style='width:100%; height:calc(95vh - 25px);'></div>
 
 <script type="text/javascript">
 
 	gantt.config.task_height = 16;
 	gantt.config.row_height = 40;
 	gantt.locale.labels.baseline_enable_button = 'Set';
-	{% comment %} gantt.locale.labels.baseline_disable_button = 'Remove'; {% endcomment %}
+	gantt.locale.labels.baseline_disable_button = 'Remove';
 
 	gantt.config.lightbox.sections = [
 		{name: "description", height: 70, map_to: "text", type: "textarea", focus: true},
@@ -92,14 +92,13 @@
 
 	gantt.parse({
 		data: [
-			{ id: 100, text: "{{mrp.order.customer.code}}", type: "project", progress: 0.6, open: true, start_date: "{{mrp.start_date|date:'d-m-Y'}} 00:00", duration: {{mrp.duration}}, end_date: "{{mrp.end_date|date:'d-m-Y'}} 00:00", parent: 0, planned_start: "{{mrp.start_date|date:'d-m-Y'}} 00:00", planned_end: "{{mrp.end_date|date:'d-m-Y'}} 00:00"},
+			{ id: 100, text: "{{mrp.order.customer.code}}", type: "project", progress: 0.6, open: true, start_date: "{{mrp.start_date|date:'d-m-Y'}} 00:00", end_date: "{{mrp.end_date|date:'d-m-Y'}} 00:00", parent: 0, planned_start: "{{mrp.planned_start|date:'d-m-Y'}} 00:00", planned_end: "{{mrp.planned_end|date:'d-m-Y'}} 00:00"},
 			{% for task in tasks %}
-            { id: {{task.id}}, text: "{{task.product}}", progress: 0.6, open: true, start_date: "{{task.start_date|date:'d-m-Y'}} 00:00", duration: {{task.duration}}, end_date: "{{task.end_date|date:'d-m-Y'}} 00:00", parent: 0, planned_start: "{{task.start_date|date:'d-m-Y'}} 00:00", planned_end: "{{task.end_date|date:'d-m-Y'}} 00:00", parent: "100"},
+            { id: {{task.id}}, text: "{{task.product}}", progress: {{task.progress}}, open: true, start_date: "{{task.start_date|date:'d-m-Y'}} 00:00", end_date: "{{task.end_date|date:'d-m-Y'}} 00:00", parent: 0, planned_start: "{{task.planned_start|date:'d-m-Y'}} 00:00", planned_end: "{{task.planned_end|date:'d-m-Y'}} 00:00", parent: "100"},
             {% endfor %}
 		],
 	});
 
 
 </script>
-{{mrp.duration}}
 {% endblock content %}
