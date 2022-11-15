@@ -175,7 +175,7 @@ def task_add(request, plan_id=None):
                 team = task_form.cleaned_data['team'],
                 quantity = task_form.cleaned_data['quantity'],
                 start_date = task_form.cleaned_data['planned_start'],
-                end_date = task_form.cleaned_data['planned_end'],
+                end_date = task_form.cleaned_data['planned_start'],
                 planned_start = task_form.cleaned_data['planned_start'],
                 planned_end = task_form.cleaned_data['planned_end'],
             )

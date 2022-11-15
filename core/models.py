@@ -78,7 +78,7 @@ class BOM(models.Model):
 class ManufacturingPlan(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     bom = models.ForeignKey(BOM, on_delete=models.CASCADE, blank=True, null=True)
-    start_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
     planned_start = models.DateTimeField(blank=True, null=True)
     planned_end = models.DateTimeField(blank=True, null=True)
@@ -87,6 +87,8 @@ class ManufacturingPlan(models.Model):
         return f"{self.order.customer} [{self.order.order_date.strftime('%d-%m-%y')}]"
     def duration(self):
         return (self.end_date-self.start_date).days
+    def progress(self):
+        return 0
 class Team(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
@@ -97,10 +99,12 @@ class Task(models.Model):
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     quantity_process = models.IntegerField(default=0)
-    start_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
     planned_start = models.DateTimeField(blank=True, null=True)
     planned_end = models.DateTimeField(blank=True, null=True)
+    is_start = models.BooleanField(default=False, blank=True, null=True)
+    is_end = models.BooleanField(default=False, blank=True, null=True)
     def duration(self):
         return (self.end_date-self.start_date).days
     def progress(self):
