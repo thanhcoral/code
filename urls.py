@@ -6,6 +6,7 @@ from core.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    path('', dashboard, name='dashboard'),
     path('dashboard', dashboard, name='dashboard'),
 
     path('customer', customer, name='customer'),

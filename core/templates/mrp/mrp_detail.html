@@ -21,7 +21,22 @@
 		</div>
 		
 		<div class="card row mb-3">
-			<div class="card-header"> <b> Mã đơn hàng: </b> {{mrp.order.customer.code}}{{mrp.order.id}} order at: {{mrp.order.order_date|date:'d-m-y'}} </div>
+			<div class="card-header" style="height: 60px;"> 
+				<div class="row">
+					<div class="col-6">
+						<b> Mã đơn hàng: </b> {{mrp.order.customer.code}}{{mrp.order.id}} order at: {{mrp.order.order_date|date:'d-m-y'}} 
+					</div>
+					<div class="col-6 text-right">
+						{% if mrp.status == 'Open' %}
+						<a href="" class="btn btn-sm btn-success">Open</a>
+						{% elif mrp.status == 'Draft' %}
+						<a href="" class="btn btn-sm btn-secondary">Draft</a>
+						{% elif mrp.status == 'Closed' %}
+						<a href="" class="btn btn-sm btn-secondary">Closed</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
 			<div class="card-body">
 				<div class="row">
 					<div class="col-2 text-center">
@@ -31,13 +46,7 @@
 						<h5 class="ml-4">{{mrp.order.customer}}</h5>
 					</div>
 					<div class="col-2">
-						{% if mrp.status == 'Open' %}
-						<a href="" class="btn btn-sm btn-success">Open</a>
-						{% elif mrp.status == 'Draft' %}
-						<a href="" class="btn btn-sm btn-secondary">Draft</a>
-						{% elif mrp.status == 'Closed' %}
-						<a href="" class="btn btn-sm btn-secondary">Closed</a>
-						{% endif %}
+						<a href="" class="btn btn-sm btn-primary">Xuất kho</a>
 					</div>
 				</div>
 			</div>
