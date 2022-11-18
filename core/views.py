@@ -204,7 +204,16 @@ def task_update(request, id):
     if request.method == 'POST':
         task_update_form = TaskUpdateForm(request.POST)
         if task_update_form.is_valid():
-            print(task_update_form.cleaned_data)
+
+            if task_update_form.cleaned_data['quantity_process'] > task.quantity:
+                messages.error(request, 'Số lượng không hợp lệ.')
+                return redirect('/task_update/' + str(id))
+
+            ivt = Inventory.objects.get(warehouse=task.warehouse, product=task.product)
+            ivt.quantity = ivt.quantity - task.quantity_process + task_update_form.cleaned_data['quantity_process']
+            ivt.save()
+            print(ivt.quantity)
+
             task.quantity_process = task_update_form.cleaned_data['quantity_process']
             task.end_date = timezone.now()
             task.save()

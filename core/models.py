@@ -93,9 +93,25 @@ class Team(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
+class Warehouse(models.Model):
+    name = models.CharField(max_length=50)
+    def __str__(self):
+        return self.name
+    def total(self, product_id):
+        product = Product.objects.get(id=product_id)
+        inventories = Inventory.objects.filter(warehouse=self, product=product)
+        x = 0
+        for inventory in inventories:
+            x += inventory.quantity
+        return x
+class Inventory(models.Model):
+    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
 class Task(models.Model):
     plan = models.ForeignKey(ManufacturingPlan, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     quantity_process = models.IntegerField(default=0)
@@ -109,14 +125,6 @@ class Task(models.Model):
         return (self.end_date-self.start_date).days
     def progress(self):
         return 1.0*(self.quantity_process/self.quantity)
-class Warehouse(models.Model):
-    name = models.CharField(max_length=50)
-    def __str__(self):
-        return self.name
-class Inventory(models.Model):
-    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
 
 
 
