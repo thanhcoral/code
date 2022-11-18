@@ -89,10 +89,6 @@ class ManufacturingPlan(models.Model):
         return (self.end_date-self.start_date).days
     def progress(self):
         return 0
-class Team(models.Model):
-    name = models.CharField(max_length=50)
-    def __str__(self):
-        return self.name
 class Warehouse(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):
@@ -104,6 +100,11 @@ class Warehouse(models.Model):
         for inventory in inventories:
             x += inventory.quantity
         return x
+class Team(models.Model):
+    name = models.CharField(max_length=50)
+    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True)
+    def __str__(self):
+        return self.name
 class Inventory(models.Model):
     warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -111,7 +112,6 @@ class Inventory(models.Model):
 class Task(models.Model):
     plan = models.ForeignKey(ManufacturingPlan, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     quantity_process = models.IntegerField(default=0)

@@ -74,8 +74,7 @@ class TaskForm(forms.ModelForm):
 class TaskUpdateForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['quantity_process', 'warehouse']
+        fields = ['quantity_process']
         widgets = {
         }
-    warehouse = forms.ModelChoiceField(queryset=Warehouse.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     quantity_process = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)

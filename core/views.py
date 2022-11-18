@@ -209,7 +209,7 @@ def task_update(request, id):
                 messages.error(request, 'Số lượng không hợp lệ.')
                 return redirect('/task_update/' + str(id))
 
-            ivt = Inventory.objects.get(warehouse=task.warehouse, product=task.product)
+            ivt = Inventory.objects.get(warehouse=task.team.warehouse, product=task.product)
             ivt.quantity = ivt.quantity - task.quantity_process + task_update_form.cleaned_data['quantity_process']
             ivt.save()
             print(ivt.quantity)
