@@ -16,7 +16,10 @@ def customer(request):
 def customer_list(request):
     return render(request, 'customer/customer_list.html', {'customers': Customer.objects.all(), })
 def customer_detail(request, id):
-    return render(request, 'customer/customer_detail.html', {'customer': Customer.objects.get(id=id), })
+    customer = Customer.objects.get(id=id)
+    if customer.contact_count == 0:
+        messages.error(request, 'Khách hàng chưa có địa chỉ liên lạc. Vui lòng thêm.')
+    return render(request, 'customer/customer_detail.html', {'customer': customer, })
 def customer_delete(request, id):
     try:
         Customer.objects.get(id=id).delete()
@@ -29,8 +32,8 @@ def customer_add(request):
     if request.method == 'POST':
         customer_form = CustomerForm(request.POST)
         if customer_form.is_valid():
-            customer_form.save()
-            return redirect('customer_list')
+            customer = customer_form.save()
+            return redirect('customer_detail/' + str(customer.id))
     return render(request, 'customer/customer_add.html', {'customer_form': customer_form, })
 def customer_normal_list(request):
     return render(request, 'customer/customer_normal_list.html', {'customers': Customer.objects.filter(type='Khách hàng'), })

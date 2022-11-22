@@ -32,6 +32,13 @@ class Customer(models.Model):
     type = models.CharField(max_length=50, choices=CUSTOMER_TYPE, blank=True, null=True)
     def __str__(self):
         return self.name
+    @property
+    def contact_count(self):
+        contacts = self.customer_contact.all()
+        total = 0
+        for contact in contacts:
+            total += 1
+        return total
 class CustomerContact(models.Model):
     label = models.CharField(max_length=50)
     address = models.CharField(max_length=50)
