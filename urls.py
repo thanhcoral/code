@@ -16,8 +16,6 @@ urlpatterns = [
     path('customer_add', customer_add, name='customer_add'),
     path('customer_normal_list', customer_normal_list, name='customer_normal_list'),
     path('customer_potential_list', customer_potential_list, name='customer_potential_list'),
-
-
     path('customer_contact_add', customer_contact_add, name='customer_contact_add'),
 
     path('product', product, name='product'),
