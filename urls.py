@@ -38,6 +38,8 @@ urlpatterns = [
 
     path('mrp', mrp, name='mrp'),
     path('mrp_list', mrp_list, name='mrp_list'),
+    path('mrp_open_list', mrp_open_list, name='mrp_open_list'),
+    path('mrp_closed_list', mrp_closed_list, name='mrp_closed_list'),
     path('mrp_detail/<int:id>', mrp_detail, name='mrp_detail'),
     path('mrp_add', mrp_add, name='mrp_add'),
     path('mrp_add/<int:id>', mrp_add, name='mrp_add'),

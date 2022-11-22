@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}MRP List{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/mrp.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<table class="table table-bordered mt-5">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Tên dự án</th>
+        <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for mrp in mrps %}
+        <tr>
+          <th scope="row">{{mrp.id}}</th>
+          <td><a href="{% url 'mrp_detail' mrp.order.id %}">{{mrp.order.customer.code}}{{mrp.order.id}}.{{mrp.order.order_date|date:'Ymd'}}</a></td>
+          <td></td>
+          <td>{{mrp.type}}</td>
+          <td>
+            <a href="{% url 'order_add' mrp.id %}" class="btn btn-sm btn-success">Create Order</a>
+            <a href="#" class="btn btn-sm btn-info">Create Quote</a>
+            <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='':''">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

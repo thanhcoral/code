@@ -125,6 +125,10 @@ def mrp(request):
     return render(request, 'mrp/mrp.html')
 def mrp_list(request):
     return render(request, 'mrp/mrp_list.html', {'mrps': ManufacturingPlan.objects.all(),})
+def mrp_open_list(request):
+    return render(request, 'mrp/mrp_open_list.html', {'mrps': ManufacturingPlan.objects.filter(status='Open'),})
+def mrp_closed_list(request):
+    return render(request, 'mrp/mrp_closed_list.html', {'mrps': ManufacturingPlan.objects.filter(status='Closed'),})
 def mrp_detail(request, id):
     try:
         mrp = ManufacturingPlan.objects.get(order=Order.objects.get(id=id))
