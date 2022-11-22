@@ -1,11 +1,24 @@
 from django.utils import timezone
 from django.db import models
 from datetime import datetime, timedelta
+from PIL import Image
 
 CUSTOMER_TYPE = [
     ('Khách hàng', 'Khách hàng'),
     ('Khách hàng tiềm năng', 'Khách hàng tiềm năng'),
     ('Others', 'Others'),
+]
+COMPANY_SIZE = [
+    ('Cá nhân', 'Cá nhân'),
+    ('Công ty lớn', 'Công ty lớn'),
+    ('Công ty vừa', 'Công ty vừa'),
+    ('Công ty nhỏ', 'Công ty nhỏ'),
+    ('Khác', 'Khác'),
+]
+CUSTOMER_STATUS = [
+    ('Active', 'Active'),
+    ('Draft', 'Draft'),
+    ('Closed', 'Closed'),
 ]
 PRODUCT_TYPE = [
     ('Smartphone', 'Smartphone'),
@@ -28,8 +41,12 @@ MRP_STATUS = [
 
 class Customer(models.Model):
     name = models.CharField(max_length=50)
+    logo = models.ImageField(upload_to='company_logo/', blank=True, null=True)
     code = models.CharField(max_length=5, blank=True, null=True, unique=True)
-    type = models.CharField(max_length=50, choices=CUSTOMER_TYPE, blank=True, null=True)
+    type = models.CharField(max_length=50, choices=CUSTOMER_TYPE, default='Khách hàng')
+    zip_code = models.CharField(max_length=5, blank=True, null=True)
+    size = models.CharField(max_length=50, choices=COMPANY_SIZE, blank=True, null=True)
+    status = models.CharField(max_length=50, choices=CUSTOMER_STATUS, default='Active')
     def __str__(self):
         return self.name
     @property
@@ -39,6 +56,13 @@ class Customer(models.Model):
         for contact in contacts:
             total += 1
         return total
+    def save(self):
+        super().save()
+        img = Image.open(self.logo.path)
+        if img.height > 200 or img.width > 200:
+            new_img = (200, 200)
+            img.thumbnail(new_img)
+            img.save(self.logo.path)
 class CustomerContact(models.Model):
     label = models.CharField(max_length=50)
     address = models.CharField(max_length=50)

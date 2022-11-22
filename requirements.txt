@@ -1,3 +1,4 @@
 django
 django-bootstrap-datepicker-plus
 djlint
+pillow

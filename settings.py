@@ -1,5 +1,6 @@
+import os
 from pathlib import Path
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 SECRET_KEY = 'django-insecure-dk=$_umek8)@a^usd-s3u!iih_##f0p+w6w#2bf$*&y&k@izg2'
 DEBUG = True
 ALLOWED_HOSTS = []
@@ -76,3 +77,5 @@ DATABASES = {
         'NAME': 'db.sqlite3',
     }
 }
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'

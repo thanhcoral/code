@@ -21,7 +21,11 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col-2 text-center">
+									{% if customer.logo %}
+									<img src="{{ customer.logo.url }}" alt="logo"/>
+									{% else %}
 									<img src="https://via.placeholder.com/128" alt="logo"/>
+									{% endif %}
 								</div>
 								<div class="col-10">
 									<h5 class="ml-4">{{ order.customer }}</h5>
