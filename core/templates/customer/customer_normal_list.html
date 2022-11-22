@@ -1,29 +1,35 @@
-{% extends 'base.html' %}
-{% block title %}Normal Customer{% endblock title %}
-
+{% extends "base.html" %}
+{% block title %} Customer List {% endblock title %}
 {% block sidebar %}
-    {% include 'sidebar/customer.html' %}
+  {% include "sidebar/customer.html" %}
 {% endblock sidebar %}
-
 {% block content %}
-<table class="table table-bordered mt-5">
+  <table class="table table-bordered mt-5">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Code</th>
         <th scope="col">Name</th>
         <th scope="col">Type</th>
+        <th scope="col">Contact</th>
+        <th scope="col">Action</th>
       </tr>
     </thead>
     <tbody>
-        {% for customer in normal_customers %}
+      {% for customer in customers %}
         <tr>
-          <th scope="row">{{customer.id}}</th>
-          <td>{{customer.code}}</td>
-          <td>{{customer.name}}</td>
-          <td>{{customer.type}}</td>
+          <th scope="row">{{ customer.id }}</th>
+          <td>{{ customer.code }}</td>
+          <td><a href="{% url 'customer_detail' customer.id %}">{{ customer.name }}</a></td>
+          <td>{{ customer.type }}</td>
+          <td>{% for contact in customer.customer_contact.all %}<div>{{ contact.label }} - {{ contact.phone }}</div>{% endfor %}</td>
+          <td>
+            <a href="{% url 'order_add' customer.id %}" class="btn btn-sm btn-success">Create Order</a>
+            <a href="#" class="btn btn-sm btn-info">Create Quote</a>
+            <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'customer_delete' customer.id %}':">Delete</a>
+          </td>
         </tr>
-        {% endfor %}
+      {% endfor %}
     </tbody>
   </table>
 {% endblock content %}

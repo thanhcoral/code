@@ -33,9 +33,9 @@ def customer_add(request):
             return redirect('customer_list')
     return render(request, 'customer/customer_add.html', {'customer_form': customer_form, })
 def customer_normal_list(request):
-    return render(request, 'customer/customer_normal_list.html', {'normal_customers': Customer.objects.filter(type='Khách hàng'), })
+    return render(request, 'customer/customer_normal_list.html', {'customers': Customer.objects.filter(type='Khách hàng'), })
 def customer_potential_list(request):
-    return render(request, 'customer/customer_potential_list.html', {'potential_customers': Customer.objects.filter(type='Khách hàng tiềm năng'), })
+    return render(request, 'customer/customer_potential_list.html', {'customers': Customer.objects.filter(type='Khách hàng tiềm năng'), })
 def customer_contact_add(request):
     customer_contact_form = CustomerContactForm()
     if request.method == 'POST':
