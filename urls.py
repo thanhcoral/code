@@ -55,4 +55,6 @@ urlpatterns = [
     path('mf', mf, name='mf'),
     path('mf_detail/<int:id>', mf_detail, name='mf_detail'),
 
+    path('inventory', inventory, name='inventory'),
+
 ]

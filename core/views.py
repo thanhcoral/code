@@ -235,4 +235,10 @@ def mf(request):
     return render(request, 'mf/mf.html', {'products': Product.objects.all(),})
 def mf_detail(request, id):
     return render(request, 'mf/mf_detail.html', {'product': Product.objects.get(id=id),})
+#########################################################################
+
+def inventory(request):
+    return render(request, 'inventory/inventory.html', {
+        'products': Product.objects.all(),
+    })
 
