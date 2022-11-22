@@ -95,8 +95,18 @@ def order_line_add(request, id=None):
     if request.method == 'POST':
         order_line_form = OrderLineForm(request.POST)
         if order_line_form.is_valid():
-            order_line_form.save()
-            messages.success(request, 'Thêm thành công.')
+            product = order_line_form.cleaned_data['product']
+            order = order_line_form.cleaned_data['order']
+            record = None
+            try:
+                record = OrderLine.objects.get(order=order, product=product)
+            except:
+                pass
+            if record is None:
+                order_line_form.save()
+                messages.success(request, 'Thêm thành công.')    
+            else:
+                messages.error(request, 'Sản phẩm đã tồn tại trong đơn hàng.')
         else:
             messages.error(request, order_line_form.errors)
         return redirect('/order_detail2/' + str(id))

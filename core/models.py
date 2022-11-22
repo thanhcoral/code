@@ -69,7 +69,7 @@ class Order(models.Model):
         return f"{self.customer} [{self.order_date.strftime('%d-%m-%y')}]"
 class OrderLine(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, unique=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField()
 class BOM(models.Model):
     code = models.CharField(max_length=5, blank=True, null=True, unique=True)
