@@ -171,10 +171,10 @@ def mrp_process(request, id):
     mrp = ManufacturingPlan.objects.get(id=id)
     tasks = mrp.task_set.all()
     return render(request, 'mrp/mrp_process.html', {'mrp': mrp, 'tasks': tasks, })
-def task_add(request, plan_id=None):
+def task_add(request, plan_id=None, product_id=None):
     task_form = TaskForm()
-    if plan_id is not None:
-        task_form = TaskForm(initial={'plan': ManufacturingPlan.objects.get(id=plan_id)})
+    if plan_id is not None and product_id is not None:
+        task_form = TaskForm(initial={'plan': ManufacturingPlan.objects.get(id=plan_id), 'product': Product.objects.get(id=product_id)})
     if request.method == 'POST':
         task_form = TaskForm(request.POST)
         if task_form.is_valid():
@@ -189,7 +189,8 @@ def task_add(request, plan_id=None):
                 planned_start = task_form.cleaned_data['planned_start'],
                 planned_end = task_form.cleaned_data['planned_end'],
             )
-            return redirect('/task_add')
+            if plan_id is not None:
+                return redirect('/mrp_detail/' + str(plan_id))
     return render(request, 'task/task_add.html', {'task_form': task_form,})
 def task_delete(request, id):
     try:

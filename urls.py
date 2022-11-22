@@ -46,7 +46,7 @@ urlpatterns = [
     path('mrp_process/<int:id>', mrp_process, name='mrp_process'),
     
     path('task_add', task_add, name='task_add'),    
-    path('task_add/<int:id>', task_add, name='task_add'),
+    path('task_add/<int:plan_id>/<int:product_id>', task_add, name='task_add'),
     path('task_delete/<int:id>', task_delete, name='task_delete'),
     path('task_detail/<int:id>', task_detail, name='task_detail'),
     path('task_start/<int:id>', task_start, name='task_start'),
