@@ -1,42 +1,52 @@
 {% extends 'base.html' %}
 {% block title %}Customer Add{% endblock title %}
-
-{% block sidebar %}
-    {% include 'sidebar/customer.html' %}
-{% endblock sidebar %}
+{% block sidebar %}{% include 'sidebar/customer.html' %}{% endblock sidebar %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <div class="container mt-5">
-        <div class="row mb-3">
-            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
-            <label class="mr-3" for="{{customer_form.name.id_for_label}}">Tên khách hàng:</label>
-            {{customer_form.name}}
-        </div>
-        <div class="col-6">
-            <label class="mr-3" for="{{customer_form.code.id_for_label}}">Mã khách hàng:</label>
-            {{customer_form.code}}
-        </div>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="container mt-5">
+    <div class="row mb-3">
+      <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+        <label class="mr-3" for="{{customer_form.name.id_for_label}}">Tên khách hàng:</label>{{customer_form.name}}
+      </div>
+      <div class="col-6">
+        <label class="mr-3" for="{{customer_form.code.id_for_label}}">Mã khách hàng:</label>{{customer_form.code}}
+      </div>
     </div>
     <div class="row mb-3">
-        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
-            <label class="mr-2" for="{{customer_form.type.id_for_label}}">Loại khách hàng:</label>
-            {{customer_form.type}}
-        </div>
-        <div class="col-6">
-        </div>
+      <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+        <label class="mr-3" for="{{customer_form.size.id_for_label}}">Loại công ty:</label>{{customer_form.size}}
+      </div>
+      <div class="col-6">
+        <label class="mr-3" for="{{customer_form.type.id_for_label}}">Tiềm năng:</label>{{customer_form.type}}
+      </div>
     </div>
-    <hr>
+    <div class="row mb-3">
+      <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+        <label class="mr-3" for="{{customer_form.status.id_for_label}}">Tình trạng</label>{{customer_form.status}}
+      </div>
+      <div class="col-6">
+        <label class="mr-3" for="{{customer_form.zip_code.id_for_label}}">Zip code:</label>{{customer_form.zip_code}}
+      </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+        <label class="mr-3" for="{{customer_form.logo.id_for_label}}">Logo:</label>{{customer_form.logo}}
+        <img id="blah" style="width: 200px;"/>
+      </div>
+      <div class="col-6">
+        <label class="mr-3" for="{{customer_form.note.id_for_label}}">Ghi chú:</label>{{customer_form.note}}
+      </div>
+    </div>
     <hr>
     <div class="row mb-3">
-        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
-            <input type="submit" value="Tạo" class="btn btn-success">
-        </div>
-        <div class="col-6">
-        </div>
+      <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+        <input type="submit" value="Tạo" class="btn btn-success">
+      </div>
+      <div class="col-6">
+      </div>
     </div>
-</div>
-<!-- {{customer_form.as_p}} -->
+  </div>
 </form>
 {% endblock content %}

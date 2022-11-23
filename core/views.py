@@ -32,8 +32,11 @@ def customer_add(request):
     if request.method == 'POST':
         customer_form = CustomerForm(request.POST)
         if customer_form.is_valid():
+            print('valid')
             customer = customer_form.save()
             return redirect('customer_detail/' + str(customer.id))
+        else:
+            messages.error(request, customer_form.errors)
     return render(request, 'customer/customer_add.html', {'customer_form': customer_form, })
 def customer_normal_list(request):
     return render(request, 'customer/customer_normal_list.html', {'customers': Customer.objects.filter(type='Khách hàng'), })

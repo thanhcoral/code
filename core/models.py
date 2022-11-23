@@ -41,12 +41,13 @@ MRP_STATUS = [
 
 class Customer(models.Model):
     name = models.CharField(max_length=50)
-    logo = models.ImageField(upload_to='company_logo/', blank=True, null=True)
     code = models.CharField(max_length=5, blank=True, null=True, unique=True)
+    logo = models.ImageField(upload_to='company_logo/', blank=True, null=True, default='company_logo/default.jpg')
     type = models.CharField(max_length=50, choices=CUSTOMER_TYPE, default='Khách hàng')
-    zip_code = models.CharField(max_length=5, blank=True, null=True)
+    zip_code = models.CharField(max_length=50, blank=True, null=True)
     size = models.CharField(max_length=50, choices=COMPANY_SIZE, blank=True, null=True)
     status = models.CharField(max_length=50, choices=CUSTOMER_STATUS, default='Active')
+    note = models.TextField(max_length=1000, blank=True, null=True)
     def __str__(self):
         return self.name
     @property
