@@ -146,7 +146,7 @@ def order_line_add(request, id=None):
         else:
             messages.error(request, order_line_form.errors)
         return redirect('/order_detail2/' + str(id))
-    return render(request, 'order_line/order_line_add.html', {'order_line_form': order_line_form,})
+    return render(request, 'order/order_line_add.html', {'order_line_form': order_line_form,})
 def order_line_delete(request, id):
     try:
         order_id = OrderLine.objects.get(id=id).order.id
