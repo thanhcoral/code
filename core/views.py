@@ -282,3 +282,5 @@ def inventory(request):
         'products': Product.objects.all(),
     })
 
+def gdn_add(request):
+    return render(request, 'product/gdn_add.html', {})

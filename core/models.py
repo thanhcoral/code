@@ -161,9 +161,9 @@ class Task(models.Model):
     def progress(self):
         return 1.0*(self.quantity_process/self.quantity)
 
-
-
-
+class GoodsDispatchNote(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    
 
 
 

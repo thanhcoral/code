@@ -33,6 +33,7 @@ urlpatterns = [
     path('product/mf', mf, name='mf'),
     path('product/mf_detail/<int:id>', mf_detail, name='mf_detail'),
 
+    path('product/gdn_add', gdn_add, name='gdn_add'),
     path('product/inventory', inventory, name='inventory'),
 
     path('sales/', order, name='sales'),
