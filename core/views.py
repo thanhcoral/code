@@ -230,7 +230,7 @@ def task_add(request, plan_id=None, product_id=None):
                 planned_end = task_form.cleaned_data['planned_end'],
             )
             if plan_id is not None:
-                return redirect('/mrp_detail/' + str(plan_id))
+                return redirect('/mrp/mrp_detail/' + str(plan_id))
     return render(request, 'task/task_add.html', {'task_form': task_form,})
 def task_delete(request, id):
     try:
@@ -239,7 +239,7 @@ def task_delete(request, id):
         messages.success(request, 'Xoá thành công.')
     except:
         messages.error(request, 'Task với ID này không tồn tại.')
-    return redirect('/mrp_detail/'+ str(plan_id))
+    return redirect('/mrp/mrp_detail/'+ str(plan_id))
 def task_detail(request, id):
     return render(request, 'task/task_detail.html', {'task': Task.objects.get(id=id),})
 def task_start(request, id):
@@ -248,7 +248,7 @@ def task_start(request, id):
     task.start_date = timezone.now()
     task.end_date = timezone.now()
     task.save()
-    return redirect('/task_detail/' + str(id))
+    return redirect('/mrp/task_detail/' + str(id))
 def task_update(request, id):
     task = Task.objects.get(id=id)
     task_update_form = TaskUpdateForm()
@@ -258,7 +258,7 @@ def task_update(request, id):
 
             if task_update_form.cleaned_data['quantity_process'] > task.quantity:
                 messages.error(request, 'Số lượng không hợp lệ.')
-                return redirect('/task_update/' + str(id))
+                return redirect('/mrp/task_update/' + str(id))
 
             ivt = Inventory.objects.get(warehouse=task.team.warehouse, product=task.product)
             ivt.quantity = ivt.quantity - task.quantity_process + task_update_form.cleaned_data['quantity_process']
@@ -268,7 +268,7 @@ def task_update(request, id):
             task.quantity_process = task_update_form.cleaned_data['quantity_process']
             task.end_date = timezone.now()
             task.save()
-            return redirect('/task_detail/' + str(id))
+            return redirect('/mrp/task_detail/' + str(id))
     return render(request, 'task/task_update.html', {'task_update_form': task_update_form,})
 #########################################################################
 def mf(request):

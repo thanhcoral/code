@@ -7,9 +7,21 @@
 
 {% block content %}
 <div class="mt-5"></div>
-{{task.product}}
+<a href="{% url 'mrp_detail' task.plan.id %}" class="btn btn-warning">Back</a>
+<div class="mt-3"></div>
+
+{{task.product}} - {% if task.is_start %}<button class="btn btn-sm btn-primary" > Started </button>{% endif %}
+<button class="btn btn-sm" > {{task.status}} </button>
 <hr>
+- quantity: {{task.quantity}}
+<hr>
+- quantity_process: {{task.quantity_process}}
+<hr>
+{% if task.is_start %}
+<div class="btn btn-secondary" style="cursor: default;" data-toggle="tooltip" data-placement="top" title="Task đã bắt đầu">Start</div>
+{% else %}
 <a href="{% url 'task_start' task.id %}" class="btn btn-primary">Start</a>
+{% endif %}
 <a href="{% url 'task_update' task.id %}" class="btn btn-primary">Update</a>
 
 {% endblock content %}

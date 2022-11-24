@@ -70,7 +70,6 @@
 					<td class="font-weight-bold" style="color: {% if order_line.quantity > order_line.product.inventory %}red{% else %}green{% endif %};">{{order_line.product.inventory}}</td>
 					<td>
 						<a href="{% url 'task_add' mrp.id order_line.product.id%}" class="btn btn-sm btn-success">Create Task</a>
-						<a href="#" class="btn btn-sm btn-info">Create Quote</a>
 						<a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='':''">Delete</a>
 					</td>
 				</tr>
@@ -94,6 +93,7 @@
 					<th scope="col">Kho</th>
 					<th scope="col">planned_start</th>
 					<th scope="col">planned_end</th>
+					<th scope="col">Status</th>
 					<th scope="col">Action</th>
 				</tr>
 			</thead>
@@ -109,8 +109,18 @@
 					<td>{{task.planned_start|date:'d-m-Y'}}</td>
 					<td>{{task.planned_end|date:'d-m-Y'}}</td>
 					<td>
-						<a href="#" class="btn btn-sm btn-warning">Edit</a>
-						<a href="#" class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'task_delete' task.id %}':''">Delete</a>
+						{% if task.is_start %}
+							<div class="btn btn-sm btn-primary">Start</div>
+						{% elif task.is_end %}
+							<div class="btn btn-sm btn-danger">End</div>
+						{% else %}
+							<div class="btn btn-sm btn-secondary">Draft</div>
+						{% endif %}
+					</td>
+					<td>
+						<a href="{% url 'task_detail' task.id %}" class="btn btn-sm btn-info">Chi tiết</a>
+						<a href="#" class="btn btn-sm btn-warning">Sửa</a>
+						<a href="#" class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'task_delete' task.id %}':''">Xóa</a>
 					</td>
 				</tr>
 				{% endfor %}
