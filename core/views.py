@@ -30,7 +30,7 @@ def customer_delete(request, id):
 def customer_add(request):
     customer_form = CustomerForm()
     if request.method == 'POST':
-        customer_form = CustomerForm(request.POST)
+        customer_form = CustomerForm(request.POST, request.FILES)
         if customer_form.is_valid():
             print('valid')
             customer = customer_form.save()

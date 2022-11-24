@@ -9,12 +9,12 @@ class CustomerForm(forms.ModelForm):
         fields = '__all__'
     logo = forms.ImageField(widget=forms.FileInput(attrs={'style': 'width: 75%; display: inline;', 'onchange': "document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])"},), required=False)
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
-    note = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control','style': 'width: 75%; display: inline;', 'rows': '6',},),)
-    zip_code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    zip_code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},), required=False)
     code = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     type = forms.CharField(widget=forms.Select(choices=CUSTOMER_TYPE,attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     size = forms.CharField(widget=forms.Select(choices=COMPANY_SIZE,attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     status = forms.CharField(widget=forms.Select(choices=CUSTOMER_STATUS,attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    note = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control','style': 'width: 75%; display: inline;', 'rows': '6',},), required=False)
 
 class CustomerContactForm(forms.ModelForm):
     class Meta:
