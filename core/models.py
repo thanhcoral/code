@@ -48,6 +48,7 @@ class Customer(models.Model):
     size = models.CharField(max_length=50, choices=COMPANY_SIZE, blank=True, null=True)
     status = models.CharField(max_length=50, choices=CUSTOMER_STATUS, default='Active')
     note = models.TextField(max_length=1000, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     def __str__(self):
         return self.name
     @property

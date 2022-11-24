@@ -12,7 +12,11 @@ def customer(request):
     labels = [i[0] for i in CUSTOMER_TYPE]
     data = [Customer.objects.filter(type=label).count() for label in labels]
     total = Customer.objects.all().count()
-    return render(request, 'customer/customer.html', {'labels': labels, 'data': data, 'total': total})
+
+    customers = Customer.objects.all()
+    # new_customers = []
+    new_customers = list(customers)[-5:]
+    return render(request, 'customer/customer.html', {'labels': labels, 'data': data, 'total': total, 'new_customers': new_customers })
 def customer_list(request):
     return render(request, 'customer/customer_list.html', {'customers': Customer.objects.all(), })
 def customer_detail(request, id):
