@@ -45,14 +45,37 @@ def customer_potential_list(request):
 def customer_contact_detail(request, id):
     customer = Customer.objects.get(id=id)
     return render(request, 'customer/customer_contact_detail.html', {'customer': customer, })
-def customer_contact_add(request):
+def customer_contact_add(request, id=None):
     customer_contact_form = CustomerContactForm()
+    if id is not None:
+        customer_contact_form = CustomerContactForm(initial={'customer': Customer.objects.get(id=id)})
     if request.method == 'POST':
         customer_contact_form = CustomerContactForm(request.POST)
         if customer_contact_form.is_valid():
             customer_contact_form.save()
-            return redirect('customer_list')
+            customer = customer_contact_form.cleaned_data['customer']
+            messages.success(request, 'Thêm thành công.')
+            return redirect('/customer/customer_contact_detail/' + str(customer.id))
     return render(request, 'customer/customer_contact_add.html', {'customer_contact_form': customer_contact_form, })
+def customer_contact_edit(request, id):
+    customer_contact_form = CustomerContactForm(instance=CustomerContact.objects.get(id=id))
+    if request.method == 'POST':
+        customer_contact_form = CustomerContactForm(request.POST, instance=CustomerContact.objects.get(id=id))
+        if customer_contact_form.is_valid():
+            customer_contact_form.save()
+            customer = customer_contact_form.cleaned_data['customer']
+            messages.success(request, 'Sửa thành công.')
+            return redirect('/customer/customer_contact_detail/' + str(customer.id))
+    return render(request, 'customer/customer_contact_edit.html', {'customer_contact_form': customer_contact_form, })
+def customer_contact_delete(request, id):
+    try:
+        customer_id = CustomerContact.objects.get(id=id).customer.id
+        CustomerContact.objects.get(id=id).delete()
+        messages.success(request, 'Xoá thành công.')
+        return redirect('/customer/customer_contact_detail/' + str(customer_id))
+    except:
+        messages.error(request, 'Địa chỉ với ID này không tồn tại.')
+        return redirect('customer_list')
 #############################################################
 def product(request):
     return render(request, 'product/product.html')

@@ -21,6 +21,9 @@ urlpatterns = [
     path('customer/customer_potential_list', customer_potential_list, name='customer_potential_list'),
     path('customer/customer_contact_detail/<int:id>', customer_contact_detail, name='customer_contact_detail'),
     path('customer/customer_contact_add', customer_contact_add, name='customer_contact_add'),
+    path('customer/customer_contact_add/<int:id>', customer_contact_add, name='customer_contact_add'),
+    path('customer/customer_contact_edit/<int:id>', customer_contact_edit, name='customer_contact_edit'),
+    path('customer/customer_contact_delete/<int:id>', customer_contact_delete, name='customer_contact_delete'),
 
     path('product/', product, name='product'),
     path('product/product_add', product_add, name='product_add'),
