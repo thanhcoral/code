@@ -42,6 +42,9 @@ def customer_normal_list(request):
     return render(request, 'customer/customer_normal_list.html', {'customers': Customer.objects.filter(type='Khách hàng'), })
 def customer_potential_list(request):
     return render(request, 'customer/customer_potential_list.html', {'customers': Customer.objects.filter(type='Khách hàng tiềm năng'), })
+def customer_contact_detail(request, id):
+    customer = Customer.objects.get(id=id)
+    return render(request, 'customer/customer_contact_detail.html', {'customer': customer, })
 def customer_contact_add(request):
     customer_contact_form = CustomerContactForm()
     if request.method == 'POST':
@@ -49,7 +52,7 @@ def customer_contact_add(request):
         if customer_contact_form.is_valid():
             customer_contact_form.save()
             return redirect('customer_list')
-    return render(request, 'customer_contact/customer_contact_add.html', {'customer_contact_form': customer_contact_form, })
+    return render(request, 'customer/customer_contact_add.html', {'customer_contact_form': customer_contact_form, })
 #############################################################
 def product(request):
     return render(request, 'product/product.html')

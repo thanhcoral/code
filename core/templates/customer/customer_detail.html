@@ -1,14 +1,12 @@
 {% extends "base.html" %}
-{% block title %}order List{% endblock title %}
-{% block sidebar %}
-	{% include "sidebar/sales.html" %}
-{% endblock sidebar %}
+{% block title %}Chi tiết khách hàng{% endblock title %}
+{% block sidebar %}{% include "sidebar/sales.html" %}{% endblock sidebar %}
 {% block content %}
 <div class="row mt-3">
   <div class="col-6">
     <div class="list-group d-flex flex-row font-weight-bold" id="list-tab">
-      <a class="list-group-item list-group-item-action w-50 active" href="">Thông tin</a>
-      <a class="list-group-item list-group-item-action w-50" href="">Liên lạc</a>
+      <a class="list-group-item list-group-item-action w-50 active" href="{% url 'customer_detail' customer.id %}">Thông tin</a>
+      <a class="list-group-item list-group-item-action w-50" href="{% url 'customer_contact_detail' customer.id %}">Liên lạc</a>
     </div>
   </div>
 </div>

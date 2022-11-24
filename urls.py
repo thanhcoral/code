@@ -19,6 +19,7 @@ urlpatterns = [
     path('customer/customer_add', customer_add, name='customer_add'),
     path('customer/customer_normal_list', customer_normal_list, name='customer_normal_list'),
     path('customer/customer_potential_list', customer_potential_list, name='customer_potential_list'),
+    path('customer/customer_contact_detail/<int:id>', customer_contact_detail, name='customer_contact_detail'),
     path('customer/customer_contact_add', customer_contact_add, name='customer_contact_add'),
 
     path('product/', product, name='product'),
