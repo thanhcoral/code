@@ -282,5 +282,8 @@ def inventory(request):
         'products': Product.objects.all(),
     })
 
-def gdn_add(request):
-    return render(request, 'product/gdn_add.html', {})
+def gdn_add(request, id):
+    order = Order.objects.get(id=id)
+    order_lines = order.orderline_set.all()
+    print(order_lines)
+    return render(request, 'product/gdn_add.html', {'order': order, 'order_lines': order_lines, })
