@@ -48,11 +48,14 @@ class OrderForm(forms.ModelForm):
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
-        fields = '__all__'
+        fields = ['name', 'type']
     name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     type = forms.CharField(widget=forms.Select(choices=PRODUCT_TYPE,attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    # components = forms.ModelChoiceField(queryset=Component.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+class ProductComponentsForm(forms.Form):
     chip = forms.ModelChoiceField(queryset=Component.objects.filter(type='chip'),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     camera = forms.ModelChoiceField(queryset=Component.objects.filter(type='camera'),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+
 class MrpForm(forms.ModelForm):
     class Meta:
         model = ManufacturingPlan

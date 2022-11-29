@@ -85,9 +85,7 @@ class Component(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=50, choices=PRODUCT_TYPE, blank=True, null=True)
-    chip = models.ManyToManyField(Component, blank=True, null=True, related_name='product_chip')
-    screen = models.ManyToManyField(Component, blank=True, null=True, related_name='product_screen')
-    camera = models.ManyToManyField(Component, blank=True, null=True, related_name='product_camera')
+    components = models.ManyToManyField(Component, blank=True, null=True, related_name='product_chip')
     def __str__(self):
         return self.name
     def inventory(self):

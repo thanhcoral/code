@@ -87,16 +87,33 @@ def product_list(request):
     return render(request, 'product/product_list.html', {'products': Product.objects.all(),})
 def product_add(request):
     product_form = ProductForm()
+    product_components_form = ProductComponentsForm()
     if request.method == 'POST':
         product_form = ProductForm(request.POST)
-        if product_form.is_valid():
-            product_form.save()
+        product_components_form = ProductComponentsForm(request.POST)
+        if product_form.is_valid() and product_components_form.is_valid():
+            # product_form.save()
+            # print(product_components_form.cleaned_data)
+            product = Product.objects.create(
+                name = product_form.cleaned_data['name'],
+                type = product_form.cleaned_data['type'],
+            )
+            list = []
+            for x in product_components_form.cleaned_data:
+                product.components.add(product_components_form.cleaned_data[str(x)])
+                list.append(product_components_form.cleaned_data[str(x)])
+            print(list)
             return redirect('product_list')
     return render(request, 'product/product_add.html', {
         'product_form': product_form,
+        'product_components_form': product_components_form,
     })
 def product_detail(request, id):
-    return render(request, 'product/product_detail.html', {'product': Product.objects.get(id=id),})
+    product = Product.objects.get(id=id)
+    debug = product.components.all()
+    print(product)
+    print(debug)
+    return render(request, 'product/product_detail.html', {'product': product,})
 #############################################################
 def order(request):
     return render(request, 'order/order.html')
