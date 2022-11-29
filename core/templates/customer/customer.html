@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base2.html' %}
 {% block title %}Customer{% endblock title %}
 
 {% block sidebar %}
@@ -56,12 +56,18 @@ $(document).ready(function(){
     </div>
     <div class="col-6">
         <h5 class="row mb-5"><div class="col-12">5 Khách hàng mang lại doanh thu cao nhất</div></h5>
+        {% for new_customer in new_customers %}
+            <div class="mb-2" style="border-bottom: 1px solid #E0E0E0;"> {{ new_customer.name }} &nbsp&nbsp {{ new_customer.created_at |date:'d-m-Y' }} </div>
+        {% endfor %}
     </div>
 </div>
 <hr>
 <div class="row mt-5 mb-5" >
     <div class="col-6" style="border-right: 2px solid #E0E0E0;">
-        <h5 class="row mb-5"><div class="col-6">Khách hàng mới</div></h5>
+        <h5 class="row mb-5">
+            <div class="col-6">Khách hàng mới</div>
+            <div class="col-5 text-right ml-5"><a href="{% url 'customer_list' %}" class="btn btn-small btn-secondary"> Danh sách khách hàng </a></div>
+        </h5>
         {% for new_customer in new_customers %}
             <div class="mb-2" style="border-bottom: 1px solid #E0E0E0;"> {{ new_customer.name }} &nbsp&nbsp {{ new_customer.created_at |date:'d-m-Y' }} </div>
         {% endfor %}
