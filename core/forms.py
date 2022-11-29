@@ -87,3 +87,14 @@ class TaskUpdateForm(forms.ModelForm):
         widgets = {
         }
     quantity_process = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+
+
+# class InvoiceForm(forms.ModelForm):
+#     class Meta:
+#         model = Invoice
+#         fields = '__all__'
+#         widgets = {
+#             "order_date": DateTimePickerInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',}),
+#         }
+#     customer = forms.ModelChoiceField(queryset=Customer.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+#     status = forms.CharField(widget=forms.Select(choices=ORDER_STATUS,attrs={'class': 'form-control','style': 'width: 50%; display: inline;',},),)

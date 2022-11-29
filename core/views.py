@@ -1,6 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib import messages
 
+from django.http import HttpResponse
+from django.template.loader import render_to_string, get_template
+from xhtml2pdf import pisa  
+from io import BytesIO
+
 from core.forms import *
 
 def dashboard(request):
@@ -303,11 +308,6 @@ def gdn_add(request, id):
     order_lines = order.orderline_set.all()
     return render(request, 'invoice/gdn_add.html', {'order': order, 'order_lines': order_lines, })
 
-from django.http import HttpResponse
-from django.template.loader import render_to_string, get_template
-from xhtml2pdf import pisa  
-from io import BytesIO
-
 def html_to_pdf(template_src, context_dict={}):
     template = get_template(template_src)
     html  = template.render(context_dict)
@@ -324,3 +324,11 @@ def gdn_export(request, id):
     open('core/templates/temp.html', "w").write(render_to_string('invoice/gdn_template.html', context))
     pdf = html_to_pdf('temp.html')
     return HttpResponse(pdf, content_type='application/pdf')
+
+def invoice_add(request, id=None):
+    if id is not None:
+        order = Order.objects.get(id=id)
+        invoice = Invoice.objects.create(order=order)
+    return
+
+    
