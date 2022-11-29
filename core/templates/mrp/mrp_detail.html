@@ -46,7 +46,11 @@
 						<h5 class="ml-4">{{mrp.order.customer}}</h5>
 					</div>
 					<div class="col-2">
-						<a href="{% url 'gdn_add' mrp.order.id %}" class="btn btn-sm btn-primary">Xuất kho</a>
+						{% if mrp.export_ability %}
+						<a class="btn btn-sm btn-primary" href="{% url 'gdn_add' mrp.order.id %}" >Xuất kho</a>
+						{% else %}
+						<a class="btn btn-sm btn-primary" onclick="confirm('kdu tieptuc?')?window.location.href='{% url 'gdn_add' mrp.order.id %}':''" >Xuất kho</a>
+						{% endif %}
 					</div>
 				</div>
 			</div>

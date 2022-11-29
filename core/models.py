@@ -122,6 +122,11 @@ class ManufacturingPlan(models.Model):
         return (self.end_date-self.start_date).days
     def progress(self):
         return 0
+    def export_ability(self):
+        for order_line in self.order.orderline_set.all():
+            if order_line.product.inventory() < order_line.quantity:
+                return False
+        return True
 class Warehouse(models.Model):
     name = models.CharField(max_length=50)
     def __str__(self):

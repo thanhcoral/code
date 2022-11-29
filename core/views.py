@@ -280,7 +280,6 @@ def task_update(request, id):
             ivt = Inventory.objects.get(warehouse=task.team.warehouse, product=task.product)
             ivt.quantity = ivt.quantity - task.quantity_process + task_update_form.cleaned_data['quantity_process']
             ivt.save()
-            print(ivt.quantity)
 
             task.quantity_process = task_update_form.cleaned_data['quantity_process']
             task.end_date = timezone.now()
@@ -302,5 +301,8 @@ def inventory(request):
 def gdn_add(request, id):
     order = Order.objects.get(id=id)
     order_lines = order.orderline_set.all()
-    print(order_lines)
+    # for order_line in order_lines:
+    #     if order_line.product.inventory() < order_line.quantity:
+    #         messages.error(request, "Chưa đủ số lượng. ")
+    #         return redirect('/mrp/mrp_detail/' + str(ManufacturingPlan.objects.get(order=order).id))
     return render(request, 'product/gdn_add.html', {'order': order, 'order_lines': order_lines, })
