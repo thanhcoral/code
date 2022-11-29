@@ -3,7 +3,12 @@
 {% block sidebar %}{% include 'sidebar/product.html' %}{% endblock sidebar %}
 
 {% block content %}
-<div class="container mt-5" style="font-family: 'Times New Roman', Times, serif; border: 1px solid #E0E0E0;">
+<div class="container mt-1">
+  <a href="" class="btn btn-small btn-warning">Edit</a>
+  <a href="" class="btn btn-small btn-success">Tạo</a>
+  <a href="{% url 'gdn_export' order.id %}" class="btn btn-small btn-secondary">Print</a>
+</div>
+<div class="container mt-3" style="font-family: 'Times New Roman', Times, serif; border: 1px solid #E0E0E0;">
   <div class="row text-center mt-5">
     <div class="col font-weight-bolder" style="font-size: 24px;">Phiếu xuất kho</div>
   </div>

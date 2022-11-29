@@ -301,8 +301,26 @@ def inventory(request):
 def gdn_add(request, id):
     order = Order.objects.get(id=id)
     order_lines = order.orderline_set.all()
-    # for order_line in order_lines:
-    #     if order_line.product.inventory() < order_line.quantity:
-    #         messages.error(request, "Chưa đủ số lượng. ")
-    #         return redirect('/mrp/mrp_detail/' + str(ManufacturingPlan.objects.get(order=order).id))
-    return render(request, 'product/gdn_add.html', {'order': order, 'order_lines': order_lines, })
+    return render(request, 'invoice/gdn_add.html', {'order': order, 'order_lines': order_lines, })
+
+from django.http import HttpResponse
+from django.template.loader import render_to_string, get_template
+from xhtml2pdf import pisa  
+from io import BytesIO
+
+def html_to_pdf(template_src, context_dict={}):
+    template = get_template(template_src)
+    html  = template.render(context_dict)
+    # print(html)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
+def gdn_export(request, id):
+    order = Order.objects.get(id=id)
+    order_lines = order.orderline_set.all()
+    context = {'order': order, 'order_lines': order_lines, }
+    open('core/templates/temp.html', "w").write(render_to_string('invoice/gdn_template.html', context))
+    pdf = html_to_pdf('temp.html')
+    return HttpResponse(pdf, content_type='application/pdf')

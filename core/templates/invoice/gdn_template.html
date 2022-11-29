@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Python Guides</title>
+    <style>
+        @page {
+            size: letter landscape;
+            margin: 2cm;
+        }
+        h1 {
+          text-align: center;
+        }
+        td, th {
+          text-align: center;
+        }
+      </style>
+</head>
+<body>
+    
+  <div style="font-family: 'Times New Roman', Times, serif; border: 1px solid #E0E0E0;">
+    <div style="font-size: 24px;">Phieu xuat kho</div>
+    <div>
+      <div >Date: 16/03/2000</div>
+      <div >No: 146</div>
+    </div>
+    <div>
+      <div>Usser: John Stephent</div>
+    </div>
+    <div>
+      <div>Address: Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam, nesciunt.</div>
+    </div>
+    <div>
+      <div>
+        <table style="border: solid 1px black; width: 100%; margin: auto;">
+          <tbody>
+            <tr style="border: solid 1px black;">
+              <td style="border: solid 1px black;" colspan="1" rowspan="2">STT</td>
+              <td style="border: solid 1px black;" colspan="1" rowspan="2">PRd</td>
+              <th style="border: solid 1px black;" colspan="2" scope="colgroup">Accessories</th>
+              <td style="border: solid 1px black;" colspan="1" rowspan="2">STT</td>
+              <td style="border: solid 1px black;" colspan="1" rowspan="2">STT</td>
+            </tr>
+            <tr style="border: solid 1px black;">
+              <th style="border: solid 1px black;" scope="col">Trousers</th>
+              <th style="border: solid 1px black;" scope="col">Skirts</th>
+            </tr>
+            {% for order_line in order_lines %}
+            <tr style="border: solid 1px black;">
+              <th style="border: solid 1px black;" scope="row">{{forloop.counter}}</th>
+              <td style="border: solid 1px black;">{{ order_line.product.name }}</td>
+              <td style="border: solid 1px black;">22</td>
+              <td style="border: solid 1px black;">43</td>
+              <td style="border: solid 1px black;">72</td>
+              <td style="border: solid 1px black;">23</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div>
+    </div>
+    <div>
+      <div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

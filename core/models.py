@@ -38,6 +38,11 @@ MRP_STATUS = [
     ('Open', 'Open'),
     ('Closed', 'Closed'),
 ]
+INVOICE_STATUS = [
+    ('Chờ thanh toán', 'Chờ thanh toán'),
+    ('Đã thanh toán', 'Đã thanh toán'),
+    ('Khác', 'Khác'),
+]
 
 class Customer(models.Model):
     name = models.CharField(max_length=50)
@@ -164,12 +169,17 @@ class Task(models.Model):
     def progress(self):
         return 1.0*(self.quantity_process/self.quantity)
 
-class GoodsDispatchNote(models.Model):
+class Invoice(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    
+    created_at = models.DateTimeField(default=timezone.now)
+    status = models.CharField(max_length=50, choices=INVOICE_STATUS, default='Chờ thanh toán')
+    @property
+    def total(self):
+        return 0
 
-
-
-
+class InvoiceDetail(models.Model):
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
 
 
