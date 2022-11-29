@@ -19,9 +19,13 @@ def customer(request):
     total = Customer.objects.all().count()
 
     customers = Customer.objects.all()
-    # new_customers = []
     new_customers = list(customers)[-5:]
-    return render(request, 'customer/customer.html', {'labels': labels, 'data': data, 'total': total, 'new_customers': new_customers })
+    most_order_customers = list(sorted(Customer.objects.all(), key=lambda t: t.order_count))[-3:]
+    labels2 = [i.name for i in most_order_customers]
+    data2 = [most_order_customer.order_count for most_order_customer in most_order_customers]
+    print(data2)
+    
+    return render(request, 'customer/customer.html', {'labels': labels, 'labels2': labels2, 'data': data, 'data2': data2, 'total': total, 'new_customers': new_customers, 'most_order_customers': most_order_customers })
 def customer_list(request):
     return render(request, 'customer/customer_list.html', {'customers': Customer.objects.all(), })
 def customer_detail(request, id):

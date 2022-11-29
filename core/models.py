@@ -45,6 +45,8 @@ INVOICE_STATUS = [
 ]
 
 class Customer(models.Model):
+    class Meta:
+        ordering = ['created_at']
     name = models.CharField(max_length=50)
     code = models.CharField(max_length=5, blank=True, null=True, unique=True)
     logo = models.ImageField(upload_to='company_logo/', blank=True, null=True, default='company_logo/default.jpg')
@@ -61,6 +63,13 @@ class Customer(models.Model):
         contacts = self.customer_contact.all()
         total = 0
         for contact in contacts:
+            total += 1
+        return total
+    @property
+    def order_count(self):
+        orders = self.order_set.all()
+        total = 0
+        for order in orders:
             total += 1
         return total
     def save(self):

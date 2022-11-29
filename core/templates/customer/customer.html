@@ -16,7 +16,6 @@ $(document).ready(function(){
         data: {
             labels: [{%for label in labels%}'{{label}}',{%endfor%}], //loop through queryset, 
             datasets: [{
-                label: '# of users',
                 data: {{data}},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.5)', 
@@ -47,6 +46,45 @@ $(document).ready(function(){
 });
 });
 </script>
+<script>
+$(document).ready(function(){
+    var ctx = document.getElementById('myChart2').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [{%for label in labels2%}'{{label}}',{%endfor%}], //loop through queryset, 
+            datasets: [{
+                label: '#',
+                data: {{data2}},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.5)', 
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                    'rgba(153, 102, 255, 0.5)',
+                    'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            },]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+});
+});
+</script>
 
 <div class="row mt-5 mb-5" >
     <div class="col-6" style="border-right: 2px solid #E0E0E0;">
@@ -55,10 +93,8 @@ $(document).ready(function(){
         <div class="text-right mr-5 mt-5">Tổng: {{total}}</div>
     </div>
     <div class="col-6">
-        <h5 class="row mb-5"><div class="col-12">5 Khách hàng mang lại doanh thu cao nhất</div></h5>
-        {% for new_customer in new_customers %}
-            <div class="mb-2" style="border-bottom: 1px solid #E0E0E0;"> {{ new_customer.name }} &nbsp&nbsp {{ new_customer.created_at |date:'d-m-Y' }} </div>
-        {% endfor %}
+        <h5 class="row mb-5"><div class="col-12">3 Khách hàng Với số lượng đơn hàng nhiều nhất </div></h5>
+        <canvas id="myChart2" width="400" height="100"></canvas>  
     </div>
 </div>
 <hr>
@@ -69,11 +105,14 @@ $(document).ready(function(){
             <div class="col-5 text-right ml-5"><a href="{% url 'customer_list' %}" class="btn btn-small btn-secondary"> Danh sách khách hàng </a></div>
         </h5>
         {% for new_customer in new_customers %}
-            <div class="mb-2" style="border-bottom: 1px solid #E0E0E0;"> {{ new_customer.name }} &nbsp&nbsp {{ new_customer.created_at |date:'d-m-Y' }} </div>
+        <div class="mb-2" style="border-bottom: 1px solid #E0E0E0;"> {{ new_customer.name }} &nbsp&nbsp {{ new_customer.created_at |date:'d-m-Y' }} </div>
         {% endfor %}
     </div>
     <div class="col-6">
         <h5 class="row mb-5"><div class="col-12">5 Khách hàng mang lại doanh thu cao nhất</div></h5>
+        {% for most_order_customer in most_order_customers %}
+            <div class="mb-2" style="border-bottom: 1px solid #E0E0E0;"> {{ most_order_customer.name }} &nbsp&nbsp {{ most_order_customer.created_at |date:'d-m-Y' }} ---- {{ most_order_customer.order_count }} </div>
+        {% endfor %}
     </div>
 </div>
 <hr>
