@@ -25,7 +25,17 @@ def customer(request):
     data2 = [most_order_customer.order_count for most_order_customer in most_order_customers]
     print(data2)
     
-    return render(request, 'customer/customer.html', {'labels': labels, 'labels2': labels2, 'data': data, 'data2': data2, 'total': total, 'new_customers': new_customers, 'most_order_customers': most_order_customers })
+    return render(request, 'customer/customer.html', {
+        'labels': labels, 
+        'labels2': labels2, 
+        'data': data, 
+        'data2': data2, 
+        'total': total, 
+        'new_customers': new_customers, 
+        'most_order_customers': most_order_customers,
+        'kh_count': Customer.objects.filter(type="Khách hàng").count(), 
+        'khtn_count': Customer.objects.filter(type="Khách hàng tiềm năng").count() ,
+        })
 def customer_list(request):
     return render(request, 'customer/customer_list.html', {'customers': Customer.objects.all(), })
 def customer_detail(request, id):

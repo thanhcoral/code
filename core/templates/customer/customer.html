@@ -90,7 +90,18 @@ $(document).ready(function(){
     <div class="col-6" style="border-right: 2px solid #E0E0E0;">
         <h5 class="row mb-5"><div class="col-6">Thống kê khách hàng</div></h5>
         <canvas id="myChart" width="400" height="100"></canvas>  
-        <div class="text-right mr-5 mt-5">Tổng: {{total}}</div>
+        <div class="row mt-5">
+            <div class="col-4">
+                <button class="btn btn-outline-primary w-100">Khách hàng: {{kh_count}}</button>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-outline-success w-100">Khách hàng tiềm năng: {{khtn_count}}</button>
+            </div>
+            <div class="col-4 text-right">
+                <button class="btn btn-danger ">Tổng: {{total}}</button>
+                <!-- <div class="text-right mr-5 mt-5">Tổng: {{total}}</div> -->
+            </div>
+        </div>
     </div>
     <div class="col-6">
         <h5 class="row mb-5"><div class="col-12">3 Khách hàng Với số lượng đơn hàng nhiều nhất </div></h5>

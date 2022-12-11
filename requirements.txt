@@ -1,4 +1,5 @@
 django
 django-bootstrap-datepicker-plus
-djlint
+# djlint
 pillow
+xhtml2pdf

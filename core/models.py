@@ -99,7 +99,7 @@ class Component(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=50)
     type = models.CharField(max_length=50, choices=PRODUCT_TYPE, blank=True, null=True)
-    components = models.ManyToManyField(Component, blank=True, null=True, related_name='product_chip')
+    components = models.ManyToManyField(Component, blank=True, null=True, related_name='components')
     def __str__(self):
         return self.name
     def inventory(self):
