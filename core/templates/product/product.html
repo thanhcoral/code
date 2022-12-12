@@ -6,5 +6,68 @@
 {% endblock sidebar %}
 
 {% block content %}
-Product
+<div class="container-fluid mt-5">
+    <div class="row">
+      <div class="col-3">
+        <a href="" class="text-decoration-none">
+          <div class="card bg-info px-3 py-3 text-center">
+            <div class="row text-center">
+              <div class="col-6 text-white">
+                <h5>Total</h5>
+                <h3>{{total}}</h3>
+              </div>
+              <div class="col-6" style="font-size: 50px; background-color: #148a9d; border-radius: 10px; color: #333;">
+                <i class="fa fa-globe" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="" class="text-decoration-none">
+          <div class="card bg-success px-3 py-3 text-center">
+            <div class="row text-center">
+              <div class="col-6 text-white">
+                <h5>Smartphone</h5>
+                <h3>{{smartphone_count}}</h3>
+              </div>
+              <div class="col-6" style="font-size: 50px; background-color: #24963e; border-radius: 10px; color: #333;">
+                <i class="fa fa-mobile" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="" class="text-decoration-none">
+          <div class="card bg-secondary px-3 py-3 text-center">
+            <div class="row text-center">
+              <div class="col-6 text-white">
+                <h5>Tablet</h5>
+                <h3>{{tablet_count}}</h3>
+              </div>
+              <div class="col-6" style="font-size: 50px; background-color: #5C646A; border-radius: 10px; color: #333;">
+                <i class="fa fa-tablet" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div class="col-3">
+        <a href="" class="text-decoration-none">
+          <div class="card bg-danger px-3 py-3 text-center">
+            <div class="row text-center">
+              <div class="col-6 text-white">
+                <h5>Laptop</h5>
+                <h3>{{laptop_count}}</h3>
+              </div>
+              <div class="col-6" style="font-size: 50px; background-color: #C6303E; border-radius: 10px; color: #333;">
+                <i class="fa fa-laptop" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 {% endblock content %}

@@ -1,0 +1,5 @@
+Item: -> Product
+    Product: -> (Total, Smartphone, Tablet, Laptop) -> (New Product, Best Product)
+        List: -> (Smartphone, Tablet, Laptop)
+        Detail: -> Edit, Delete
+    Component
