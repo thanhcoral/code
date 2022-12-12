@@ -101,7 +101,16 @@ def customer_contact_delete(request, id):
         return redirect('customer_list')
 #############################################################
 def product(request):
-    return render(request, 'product/product.html')
+    total = Product.objects.all().count()
+    smartphone_count = Product.objects.filter(type="Smartphone").count()
+    tablet_count = Product.objects.filter(type="Tablet").count()
+    laptop_count = Product.objects.filter(type="Laptop").count()
+    return render(request, 'product/product.html', {
+        'total': total,
+        'smartphone_count': smartphone_count,
+        'tablet_count': tablet_count,
+        'laptop_count': laptop_count,
+    })
 def product_list(request):
     return render(request, 'product/product_list.html', {'products': Product.objects.all(),})
 def product_add(request):
