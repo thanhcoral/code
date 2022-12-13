@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Customer Add{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/product.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container mt-5">
+        <div class="row mb-3">
+            <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{product_form.name.id_for_label}}">Tên sản phẩm:</label>
+            {{product_form.name}}
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-2" for="{{product_form.type.id_for_label}}">Loại sản phẩm:</label>
+            {{product_form.type}}
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-2" for="{{product_form.components.id_for_label}}">Components</label>
+            {{product_form.components}}
+        </div>
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <label class="mr-3" for="{{product_form.image.id_for_label}}">Logo:</label>{{product_form.image}}
+            <img id="blah" style="width: 200px;"/>
+          </div>
+    </div>
+    <hr>
+    {{product_components_form.as_p}}    
+    <hr>
+    <div class="row mb-3">
+        <div class="col-6" style="border-right: 1px solid #E0E0E0;">
+            <input type="submit" value="Tạo" class="btn btn-success">
+        </div>
+        <div class="col-6">
+        </div>
+    </div>
+</div>
+<!-- {{product_form.as_p}} -->
+</form>
+{% endblock content %}

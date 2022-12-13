@@ -81,6 +81,66 @@ def product_edit(request, id):
         'product_components_form': product_components_form,
     })
 
+def component(request):
+    return render(request, 'component/index.html', {
+    })
+
+def component_list(request):
+    return render(request, 'component/list.html', {'components': Component.objects.all(),})
+
+def component_add(request):
+    product_form = ProductForm()
+    product_components_form = ProductComponentsForm()
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, request.FILES)
+        product_components_form = ProductComponentsForm(request.POST)
+        if product_form.is_valid() and product_components_form.is_valid():
+            product= product_form.save()
+            messages.success(request, 'Thêm thành công.')
+            list = []
+            for x in product_components_form.cleaned_data:
+                product.components.add(product_components_form.cleaned_data[str(x)])
+                list.append(product_components_form.cleaned_data[str(x)])
+            return redirect('product_list')
+    return render(request, 'product/add.html', {
+        'product_form': product_form,
+        'product_components_form': product_components_form,
+    })
+
+def component_detail(request, id):
+    component = Component.objects.get(id=id)
+    return render(request, 'component/detail.html', {'component': component,})
+
+def component_delete(request, id):
+    try:
+        Component.objects.get(id=id).delete()
+        messages.success(request, 'Xoá thành công.')
+    except:
+        messages.error(request, 'Vật liệu với ID này không tồn tại.')
+    return redirect('component_list')
+
+def component_edit(request, id):
+    product=Product.objects.get(id=id)
+    product_form = ProductForm(instance=product)
+    product_components_form = ProductComponentsForm()
+    if product_components_form.is_valid():
+        print(product_components_form.cleaned_data)
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, request.FILES)
+        product_components_form = ProductComponentsForm(request.POST)
+        if product_form.is_valid() and product_components_form.is_valid():
+            product= product_form.save()
+            messages.success(request, 'Thêm thành công.')
+            list = []
+            for x in product_components_form.cleaned_data:
+                product.components.add(product_components_form.cleaned_data[str(x)])
+                list.append(product_components_form.cleaned_data[str(x)])
+            return redirect('product_list')
+    return render(request, 'product/add.html', {
+        'product_form': product_form,
+        'product_components_form': product_components_form,
+    })
+
 def customer(request):
     labels = [i[0] for i in CUSTOMER_TYPE]
     data = [Customer.objects.filter(type=label).count() for label in labels]

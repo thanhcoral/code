@@ -32,6 +32,13 @@ urlpatterns = [
     path('product/product_delete/<int:id>', product_delete, name='product_delete'),
     path('product/product_edit/<int:id>', product_edit, name='product_edit'),
 
+    path('product/component', component, name='component'),
+    path('product/component_add', component_add, name='component_add'),
+    path('product/component_list', component_list, name='component_list'),
+    path('product/component_detail/<int:id>', component_detail, name='component_detail'),
+    path('product/component_delete/<int:id>', component_delete, name='component_delete'),
+    path('product/component_edit/<int:id>', component_edit, name='component_edit'),
+
     path('product/mf', mf, name='mf'),
     path('product/mf_detail/<int:id>', mf_detail, name='mf_detail'),
 
