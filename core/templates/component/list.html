@@ -16,15 +16,15 @@
       </tr>
     </thead>
     <tbody>
-        {% for product in products %}
+        {% for component in components %}
         <tr>
-          <th scope="row">{{product.id}}</th>
-          <td><a href="{% url 'product_detail' product.id %}">{{product.name}}</a></td>
-          <td>{{product.type}}</td>
+          <th scope="row">{{component.id}}</th>
+          <td><a href="{% url 'component_detail' component.id %}">{{component.name}}</a></td>
+          <td>{{component.type}}</td>
           <td>
-            <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-info">Chi tiết</a>
-            <a href="{% url 'product_edit' product.id %}" class="btn btn-sm btn-warning">Sửa</a>
-            <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'product_delete' product.id %}':''">Delete</a>
+            <a href="{% url 'component_detail' component.id %}" class="btn btn-sm btn-info">Chi tiết</a>
+            <a href="{% url 'component_edit' component.id %}" class="btn btn-sm btn-warning">Sửa</a>
+            <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'component_delete' component.id %}':''">Delete</a>
           </td>
         </tr>
         {% endfor %}

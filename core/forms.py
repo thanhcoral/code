@@ -45,6 +45,14 @@ class OrderForm(forms.ModelForm):
     customer = forms.ModelChoiceField(queryset=Customer.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
     status = forms.CharField(widget=forms.Select(choices=ORDER_STATUS,attrs={'class': 'form-control','style': 'width: 50%; display: inline;',},),)
 
+class ComponentForm(forms.ModelForm):
+    class Meta:
+        model = Component
+        fields = '__all__'
+    name = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    type = forms.CharField(widget=forms.Select(choices=COMPONENT_TYPE,attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+    supplier = forms.ModelChoiceField(queryset=Supplier.objects.all(),widget=forms.Select(attrs={'class': 'form-control','style': 'width: 75%; display: inline;',},),)
+
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product

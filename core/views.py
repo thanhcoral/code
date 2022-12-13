@@ -89,22 +89,15 @@ def component_list(request):
     return render(request, 'component/list.html', {'components': Component.objects.all(),})
 
 def component_add(request):
-    product_form = ProductForm()
-    product_components_form = ProductComponentsForm()
+    component_form = ComponentForm()
     if request.method == 'POST':
-        product_form = ProductForm(request.POST, request.FILES)
-        product_components_form = ProductComponentsForm(request.POST)
-        if product_form.is_valid() and product_components_form.is_valid():
-            product= product_form.save()
+        component_form = ComponentForm(request.POST, request.FILES)
+        if component_form.is_valid():
+            component = component_form.save()
             messages.success(request, 'Thêm thành công.')
-            list = []
-            for x in product_components_form.cleaned_data:
-                product.components.add(product_components_form.cleaned_data[str(x)])
-                list.append(product_components_form.cleaned_data[str(x)])
             return redirect('product_list')
-    return render(request, 'product/add.html', {
-        'product_form': product_form,
-        'product_components_form': product_components_form,
+    return render(request, 'component/add.html', {
+        'component_form': component_form,
     })
 
 def component_detail(request, id):
