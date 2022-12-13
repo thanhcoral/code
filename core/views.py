@@ -49,9 +49,6 @@ def product_add(request):
 
 def product_detail(request, id):
     product = Product.objects.get(id=id)
-    debug = product.components.all()
-    print(product)
-    print(debug)
     return render(request, 'product/detail.html', {'product': product,})
 
 def product_delete(request, id):
