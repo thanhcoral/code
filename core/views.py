@@ -59,6 +59,27 @@ def product_delete(request, id):
         messages.error(request, 'Sản phẩm với ID này không tồn tại.')
     return redirect('product_list')
 
+def product_edit(request, id):
+    product=Product.objects.get(id=id)
+    product_form = ProductForm(instance=product)
+    product_components_form = ProductComponentsForm()
+    if product_components_form.is_valid():
+        print(product_components_form.cleaned_data)
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, request.FILES)
+        product_components_form = ProductComponentsForm(request.POST)
+        if product_form.is_valid() and product_components_form.is_valid():
+            product= product_form.save()
+            messages.success(request, 'Thêm thành công.')
+            list = []
+            for x in product_components_form.cleaned_data:
+                product.components.add(product_components_form.cleaned_data[str(x)])
+                list.append(product_components_form.cleaned_data[str(x)])
+            return redirect('product_list')
+    return render(request, 'product/add.html', {
+        'product_form': product_form,
+        'product_components_form': product_components_form,
+    })
 
 def customer(request):
     labels = [i[0] for i in CUSTOMER_TYPE]
