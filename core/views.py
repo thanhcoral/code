@@ -54,6 +54,14 @@ def product_detail(request, id):
     print(debug)
     return render(request, 'product/detail.html', {'product': product,})
 
+def product_delete(request, id):
+    try:
+        Product.objects.get(id=id).delete()
+        messages.success(request, 'Xoá thành công.')
+    except:
+        messages.error(request, 'Sản phẩm với ID này không tồn tại.')
+    return redirect('product_list')
+
 
 def customer(request):
     labels = [i[0] for i in CUSTOMER_TYPE]

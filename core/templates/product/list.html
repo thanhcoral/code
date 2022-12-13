@@ -23,7 +23,7 @@
           <td>{{product.type}}</td>
           <td>
             <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-info">Chi tiết</a>
-            <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='':">Delete</a>
+            <a class="btn btn-sm btn-danger" onclick="confirm('delete?')?window.location.href='{% url 'product_delete' product.id %}':''">Delete</a>
           </td>
         </tr>
         {% endfor %}
