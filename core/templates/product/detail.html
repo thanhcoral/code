@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}product List{% endblock title %}
+
+{% block sidebar %}
+    {% include 'sidebar/product.html' %}
+{% endblock sidebar %}
+
+{% block content %}
+
+{{product.name}} <br>
+{{product.type}} <br>
+<hr>
+{% for component in product.components.all %}
+{{component.type}}: {{component}} <br>
+{% endfor %}
+
+<hr>
+<img src="{{ product.image.url }}" alt="image" style="width: 100px;"/>
+{% endblock content %}
