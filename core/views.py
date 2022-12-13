@@ -120,17 +120,16 @@ def product_add(request):
         product_form = ProductForm(request.POST, request.FILES)
         product_components_form = ProductComponentsForm(request.POST)
         if product_form.is_valid() and product_components_form.is_valid():
-            # product= product_form.save()
-            print(product_form.cleaned_data)
+            product= product_form.save()
             # product = Product.objects.create(
             #     name = product_form.cleaned_data['name'],
             #     type = product_form.cleaned_data['type'],
             # )
-            # list = []
-            # for x in product_components_form.cleaned_data:
-            #     product.components.add(product_components_form.cleaned_data[str(x)])
-            #     list.append(product_components_form.cleaned_data[str(x)])
-            # print(list)
+            list = []
+            for x in product_components_form.cleaned_data:
+                product.components.add(product_components_form.cleaned_data[str(x)])
+                list.append(product_components_form.cleaned_data[str(x)])
+            print(list)
             return redirect('product_list')
     return render(request, 'product/product_add.html', {
         'product_form': product_form,
