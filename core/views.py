@@ -12,7 +12,48 @@ def dashboard(request):
     return render(request, 'dashboard.html')
 def inventory_status():
     return 
-#############################################################
+def product(request):
+    total = Product.objects.all().count()
+    smartphone_count = Product.objects.filter(type="Smartphone").count()
+    tablet_count = Product.objects.filter(type="Tablet").count()
+    laptop_count = Product.objects.filter(type="Laptop").count()
+    return render(request, 'product/product.html', {
+        'total': total,
+        'smartphone_count': smartphone_count,
+        'tablet_count': tablet_count,
+        'laptop_count': laptop_count,
+    })
+def product_list(request):
+    return render(request, 'product/product_list.html', {'products': Product.objects.all(),})
+def product_add(request):
+    product_form = ProductForm()
+    product_components_form = ProductComponentsForm()
+    if request.method == 'POST':
+        product_form = ProductForm(request.POST, request.FILES)
+        product_components_form = ProductComponentsForm(request.POST)
+        if product_form.is_valid() and product_components_form.is_valid():
+            product= product_form.save()
+            # product = Product.objects.create(
+            #     name = product_form.cleaned_data['name'],
+            #     type = product_form.cleaned_data['type'],
+            # )
+            list = []
+            for x in product_components_form.cleaned_data:
+                product.components.add(product_components_form.cleaned_data[str(x)])
+                list.append(product_components_form.cleaned_data[str(x)])
+            print(list)
+            return redirect('product_list')
+    return render(request, 'product/product_add.html', {
+        'product_form': product_form,
+        'product_components_form': product_components_form,
+    })
+def product_detail(request, id):
+    product = Product.objects.get(id=id)
+    debug = product.components.all()
+    print(product)
+    print(debug)
+    return render(request, 'product/product_detail.html', {'product': product,})
+
 def customer(request):
     labels = [i[0] for i in CUSTOMER_TYPE]
     data = [Customer.objects.filter(type=label).count() for label in labels]
@@ -100,48 +141,7 @@ def customer_contact_delete(request, id):
         messages.error(request, 'Địa chỉ với ID này không tồn tại.')
         return redirect('customer_list')
 #############################################################
-def product(request):
-    total = Product.objects.all().count()
-    smartphone_count = Product.objects.filter(type="Smartphone").count()
-    tablet_count = Product.objects.filter(type="Tablet").count()
-    laptop_count = Product.objects.filter(type="Laptop").count()
-    return render(request, 'product/product.html', {
-        'total': total,
-        'smartphone_count': smartphone_count,
-        'tablet_count': tablet_count,
-        'laptop_count': laptop_count,
-    })
-def product_list(request):
-    return render(request, 'product/product_list.html', {'products': Product.objects.all(),})
-def product_add(request):
-    product_form = ProductForm()
-    product_components_form = ProductComponentsForm()
-    if request.method == 'POST':
-        product_form = ProductForm(request.POST, request.FILES)
-        product_components_form = ProductComponentsForm(request.POST)
-        if product_form.is_valid() and product_components_form.is_valid():
-            product= product_form.save()
-            # product = Product.objects.create(
-            #     name = product_form.cleaned_data['name'],
-            #     type = product_form.cleaned_data['type'],
-            # )
-            list = []
-            for x in product_components_form.cleaned_data:
-                product.components.add(product_components_form.cleaned_data[str(x)])
-                list.append(product_components_form.cleaned_data[str(x)])
-            print(list)
-            return redirect('product_list')
-    return render(request, 'product/product_add.html', {
-        'product_form': product_form,
-        'product_components_form': product_components_form,
-    })
-def product_detail(request, id):
-    product = Product.objects.get(id=id)
-    debug = product.components.all()
-    print(product)
-    print(debug)
-    return render(request, 'product/product_detail.html', {'product': product,})
-#############################################################
+
 def order(request):
     return render(request, 'order/order.html')
 def order_list(request):
